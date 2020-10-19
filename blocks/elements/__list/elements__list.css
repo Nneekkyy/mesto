@@ -1,0 +1,8 @@
+.elements__list{
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: repeat(2, minmax(min-content, max-content));
+  gap: 21px 18px;
+  list-style-type: none;
+  padding: 0;
+}
