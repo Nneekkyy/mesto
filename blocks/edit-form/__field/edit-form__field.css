@@ -1,0 +1,10 @@
+.edit-form__field {
+  width: 358px;
+  height: 27px;
+  padding: 0px;
+  margin-bottom: 30px;
+  border: none;
+  background-color: #FFFFFF;
+  appearance: none;
+  border-bottom: 1px solid #000000;
+}

@@ -1,13 +1,13 @@
-.element__name-title {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+.edit-form__title {
   font-family: "Inter", Arial, sans-serif;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
   color: #000000;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  width: 330px;
+  margin-left: 36px;
+  margin-top: 0;
+  padding-top: 34px;
+  margin-bottom: 54px;
 }

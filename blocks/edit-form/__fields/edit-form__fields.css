@@ -1,0 +1,8 @@
+.edit-form__fields {
+  width: 358px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  list-style-type: none;
+  margin-left: 36px;
+}

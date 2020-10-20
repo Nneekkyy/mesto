@@ -1,0 +1,7 @@
+.profile__card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  margin-top: 40px;
+}
