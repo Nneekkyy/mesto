@@ -14,3 +14,7 @@
   margin-top: 10px;
   margin-bottom: 36.5px;
 }
+.edit-form__button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
