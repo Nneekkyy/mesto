@@ -5,3 +5,9 @@
   left:50%;
   margin:-215px 0 0 -215px;
 }
+
+@media screen and (max-width: 680px) {
+  .popup__container {
+    margin:-141px 0 0 -141px;
+  }
+}
