@@ -15,11 +15,13 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__image" src="./images/profile-avatar.png" alt="Фотография профиля">
-        <div class="profile__info">
-          <p class="profile__name">Жак-Ив Кусто</p>
-          <div class="profile__edit"></div>
-          <p class="profile__title">Исследователь океана</p>
+        <div class="profile__container">
+          <img class="profile__image" src="./images/profile-avatar.png" alt="Фотография профиля">
+          <div class="profile__info">
+            <p class="profile__name">Жак-Ив Кусто</p>
+            <div class="profile__edit"></div>
+            <p class="profile__title">Исследователь океана</p>
+          </div>
         </div>
         <div class="profile__add"></div>
       </section>
@@ -75,11 +77,11 @@
             <div class="edit-form__close"></div>
             <div class="edit-form__area">
               <h1 class="edit-form__title">Редактировать профиль</h1>
-              <div class="edit-form__fields">
+              <form class="edit-form__fields">
                 <input id="nameField" class="edit-form__field" type="text" name="name" placeholder="Имя" value="Жак-Ив Кусто" required>
                 <input id="titleField" class="edit-form__field" type="text" name="about" placeholder="О себе" value="Исследователь океана" required>
-                <input id="submit" class="edit-form__button" type="submit" value="Сохранить">
-              </div>
+                <input class="edit-form__button" type="submit" value="Сохранить" required>
+              </form>
             </div>
           </section>
         </div>

@@ -5,3 +5,11 @@
  gap: 10px 19px;
  margin-left: 30px;
 }
+
+@media screen and (max-width: 680px) {
+  .profile__info {
+    margin-left: 0px;
+    margin-top: 22px;
+    gap: 0 10px;
+  }
+}
