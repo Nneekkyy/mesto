@@ -76,9 +76,9 @@
             <div class="edit-form__area">
               <h1 class="edit-form__title">Редактировать профиль</h1>
               <div class="edit-form__fields">
-                <input class="edit-form__field" type="text" name="name" placeholder="Имя" required>
-                <input class="edit-form__field" type="text" name="about" placeholder="О себе" required>
-                <input class="edit-form__button" type="submit" value="Сохранить">
+                <input id="nameField" class="edit-form__field" type="text" name="name" placeholder="Имя" value="Жак-Ив Кусто" required>
+                <input id="titleField" class="edit-form__field" type="text" name="about" placeholder="О себе" value="Исследователь океана" required>
+                <input id="submit" class="edit-form__button" type="submit" value="Сохранить">
               </div>
             </div>
           </section>
@@ -92,6 +92,7 @@
   </div>
   <script src="./blocks/profile/__edit/profile__edit.js"></script>
   <script src="./blocks/edit-form/__close/edit-form__close.js"></script>
+  <script src="./blocks/edit-form/__button/edit-form__button.js"></script>
 </body>
 
 </html>
