@@ -1,0 +1,11 @@
+.edit-form__close {
+  width: 40.7px;
+  height: 40.7px;
+  background-image: url(../../../images/close-icon.svg);
+  background-position: center;
+  margin-left: 430px;
+}
+.edit-form__close:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
