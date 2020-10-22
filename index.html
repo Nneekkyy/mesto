@@ -18,83 +18,98 @@
         <div class="profile__container">
           <img class="profile__image" src="./images/profile-avatar.png" alt="Фотография профиля">
           <div class="profile__info">
-            <p class="profile__name">Жак-Ив Кусто</p>
-            <div class="profile__edit"></div>
-            <p class="profile__title">Исследователь океана</p>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <form>
+              <button class="profile__edit" type="button"></button>
+            </form>
+            <h2 class="profile__title">Исследователь океана</h2>
           </div>
         </div>
-        <div class="profile__add"></div>
+        <form>
+          <button class="profile__add" type="button"></button>
+        </form>
       </section>
       <section class="elements">
         <ul class="elements__list">
           <li class="element">
             <img class="element__image" src="./images/elements-karachaevo.png" alt="заброшенное здание">
             <div class="element__name-place">
-              <h1 class="element__name-title">Карачаево-Черкесия</h1>
-              <img class="element__button-like" src="./images/elements-like.svg" alt="кнопка лайка">
+              <h2 class="element__name-title">Карачаево-Черкесия</h2>
+              <form>
+                <button class="element__button-like" type="button"></button>
+              </form>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elements-elbrus.png" alt="Гора эльбрус со степью">
             <div class="element__name-place">
-              <h1 class="element__name-title">Гора Эльбрус</h1>
-              <img class="element__button-like" src="./images/elements-like.svg" alt="кнопка лайка">
+              <h2 class="element__name-title">Гора Эльбрус</h2>
+              <form>
+  <button class="element__button-like" type="button"></button>
+</form>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elements-dombay.png" alt="Заснеженная гора">
             <div class="element__name-place">
-              <h1 class="element__name-title">Домбай</h1>
-              <img class="element__button-like" src="./images/elements-like.svg" alt="кнопка лайка">
+              <h2 class="element__name-title">Домбай</h2>
+              <form>
+  <button class="element__button-like" type="button"></button>
+</form>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elements-elbrus.png" alt="Гора эльбрус со степью">
             <div class="element__name-place">
-              <h1 class="element__name-title">Гора Эльбрус</h1>
-              <img class="element__button-like" src="./images/elements-like.svg" alt="кнопка лайка">
+              <h2 class="element__name-title">Гора Эльбрус</h2>
+              <form>
+  <button class="element__button-like" type="button"></button>
+</form>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elements-dombay.png" alt="Заснеженная гора">
             <div class="element__name-place">
-              <h1 class="element__name-title">Домбай</h1>
-              <img class="element__button-like" src="./images/elements-like.svg" alt="кнопка лайка">
+              <h2 class="element__name-title">Домбай</h2>
+              <form>
+  <button class="element__button-like" type="button"></button>
+</form>
             </div>
           </li>
           <li class="element">
             <img class="element__image" src="./images/elements-karachaevo.png" alt="заброшенное здание">
             <div class="element__name-place">
-              <h1 class="element__name-title">Карачаево-Черкесия</h1>
-              <img class="element__button-like" src="./images/elements-like.svg" alt="кнопка лайка">
+              <h2 class="element__name-title">Карачаево-Черкесия</h2>
+              <form>
+  <button class="element__button-like" type="button"></button>
+</form>
             </div>
           </li>
         </ul>
       </section>
-      <div class="popup">
-        <div class="popup__container">
-          <section class="edit-form">
-            <div class="edit-form__close"></div>
-            <div class="edit-form__area">
-              <h1 class="edit-form__title">Редактировать профиль</h1>
-              <form class="edit-form__fields">
-                <input id="nameField" class="edit-form__field" type="text" name="name" placeholder="Имя" value="Жак-Ив Кусто" required>
-                <input id="titleField" class="edit-form__field" type="text" name="about" placeholder="О себе" value="Исследователь океана" required>
-                <input class="edit-form__button" type="submit" value="Сохранить">
-              </form>
-            </div>
-          </section>
-        </div>
-      </div>
-
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <section class="edit-form">
+          <form>
+            <button class="edit-form__close" type="button"></button>
+          </form>
+          <div class="edit-form__area">
+            <h2 class="edit-form__title">Редактировать профиль</h2>
+            <form class="edit-form__fields name="EditForm" ">
+              <input id="nameField" class="edit-form__field" type="text" name="name" placeholder="Имя" value="" required>
+              <input id="titleField" class="edit-form__field" type="text" name="about" placeholder="О себе" value="" required>
+              <input class="edit-form__button" type="submit" value="Сохранить">
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
-  <script src="./blocks/profile/__edit/profile__edit.js"></script>
-  <script src="./blocks/edit-form/__close/edit-form__close.js"></script>
-  <script src="./blocks/edit-form/__button/edit-form__button.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
