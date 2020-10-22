@@ -8,6 +8,8 @@
   box-sizing: border-box;
   align-self: center;
   margin-top: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: 20px;
 }
 
 .profile__edit:hover {
@@ -19,6 +21,7 @@
     .profile__edit {
       width: 18px;
       height: 18px;
-      margin-top: 0;
+      margin-top: 20px;
+      margin-left: -30px;
     }
   }
