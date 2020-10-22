@@ -6,17 +6,22 @@
   line-height: 56px;
   color: #FFFFFF;
   margin: 0;
+  text-align: center;
   vertical-align: bottom;
   max-width: 330px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  vertical-align: bottom;
 }
 
 @media screen and (max-width: 680px) {
   .profile__name {
     text-align: center;
     font-size: 27px;
-    width: 280px;
+    line-height: 52px;
+    width: 201px;
+    padding-top: 2px;
+    padding-left: 28px;
   }
 }

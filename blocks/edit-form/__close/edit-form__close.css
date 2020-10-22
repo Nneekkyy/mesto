@@ -3,9 +3,13 @@
   height: 40.7px;
   background-image: url("../../../images/close-icon.svg");
   background-position: center;
-  margin-left: 430px;
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  position: absolute;
+  top: -36px;
+  right: -36px;
+  padding: 0;
+  margin: 0;
 }
 .edit-form__close:hover {
   cursor: pointer;
@@ -16,7 +20,6 @@
   .edit-form__close {
     width: 26px;
     height: 26px;
-    margin-left: 250px;
-    margin-bottom: 14px;
+    right: 0;
   }
 }

@@ -21,6 +21,7 @@
     .profile__edit {
       width: 18px;
       height: 18px;
-      margin-top: 0;
+      margin-top: 20px;
+      margin-left: -30px;
     }
   }
