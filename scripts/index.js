@@ -18,9 +18,8 @@ function formSubmitHandler (evt) {
     titleOutput.textContent = titleField.value;
     popupClassClose ();
 }
-// Прикрепляем обработчик к форме:
-formElement.addEventListener('submit', formSubmitHandler);
-//фнкции открытия и закрытия всплывающего океан
+
+//фнкции открытия и закрытия всплывающего окна
 function popupClassOpen () {
   popupSelect.classList.toggle('popup_opened');
   nameField.value = nameOutput.textContent;
@@ -31,6 +30,9 @@ function popupClassOpen () {
 function popupClassClose () {
   popupSelect.classList.toggle('popup_opened');
 }
+
+// Прикрепляем обработчик к форме:
+formElement.addEventListener('submit', formSubmitHandler);
 
 editButton.addEventListener('click', popupClassOpen, false);
 closeButton.addEventListener('click', popupClassClose, false);
