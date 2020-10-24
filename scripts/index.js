@@ -16,23 +16,33 @@ function formSubmitHandler (evt) {
 
     nameOutput.textContent = nameField.value;
     titleOutput.textContent = titleField.value;
-    popupClassClose ();
+    popupClassToggle ();
 }
 
-//фнкции открытия и закрытия всплывающего окна
-function popupClassOpen () {
-  popupSelect.classList.toggle('popup_opened');
-  nameField.value = nameOutput.textContent;
-  titleField.value = titleOutput.textContent;
-}
+function popupClassToggle() {
+  if (popupSelect.classList.contains('popup_opened')) {
+      popupSelect.classList.toggle('popup_opened');
+  } else {
+    popupSelect.classList.toggle('popup_opened');
+    nameField.value = nameOutput.textContent;
+    titleField.value = titleOutput.textContent;
+  }
 
-
-function popupClassClose () {
-  popupSelect.classList.toggle('popup_opened');
 }
+//функции открытия и закрытия всплывающего окна
+// function popupClassOpen () {
+//   popupSelect.classList.toggle('popup_opened');
+//   nameField.value = nameOutput.textContent;
+//   titleField.value = titleOutput.textContent;
+// }
+//
+//
+// function popupClassClose () {
+//   popupSelect.classList.toggle('popup_opened');
+// }
 
 // Прикрепляем обработчик к форме:
 formElement.addEventListener('submit', formSubmitHandler);
 
-editButton.addEventListener('click', popupClassOpen, false);
-closeButton.addEventListener('click', popupClassClose, false);
+editButton.addEventListener('click', popupClassToggle, false);
+closeButton.addEventListener('click', popupClassToggle, false);
