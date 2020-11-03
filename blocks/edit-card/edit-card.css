@@ -1,12 +1,13 @@
-.edit-form {
+.edit-card {
   width: 430px;
   margin: 0 auto;
   z-index: 4;
-  display: none;
+  /* display: none; */
 }
 
 @media screen and (max-width: 680px) {
-  .edit-form {
+  .edit-card {
     width: 282px;
   }
 }
+card
