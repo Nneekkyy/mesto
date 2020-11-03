@@ -4,6 +4,7 @@ let titleOutput =  document.querySelector('.profile__title');
 let formElement = document.querySelector('.edit-form__fields');
 let popupSelect = document.querySelector('.popup');
 let editForm = document.querySelector('.edit-form');
+let cardForm = document.querySelector('.card-form');
 const cardContainer = document.querySelector('.elements__list');
 
 // переменные для всех кнопок
@@ -12,6 +13,7 @@ let closeFormButton = document.querySelector('.edit-form__close');
 let closeCardButton = document.querySelector('.edit-card__close');
 let saveButton = document.querySelector('.edit-form__button');
 let addCardButton = document.querySelector('.profile__add');
+let saveCardButton = document.querySelector('.edit-card__button');
 
 //массив с карточками
 
@@ -52,37 +54,49 @@ initialCards.forEach(function (element) {
   cardContainer.append(cardElement);
 });
 
-function addCard () {
-
-}
-
+// function addCard () {
+//   initialCards.unshift('name: ${placeField.textContent} , link: ${sourceField.textContent}')
+// }
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
+
+
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
 
     nameOutput.textContent = nameField.value;
     titleOutput.textContent = titleField.value;
-    popupClassToggle ();
+    formClassToggle ();
 }
 
-function popupClassToggle() {
+function cardClassToggle() {
   if (popupSelect.classList.contains('popup_opened')) {
       popupSelect.classList.toggle('popup_opened');
+      cardForm.classList.toggle('edit-card_opened');
   } else {
     popupSelect.classList.toggle('popup_opened');
+    cardForm.classList.toggle('edit-card_opened');
+  }
+}
+
+function formClassToggle() {
+  if (popupSelect.classList.contains('popup_opened')) {
+      popupSelect.classList.toggle('popup_opened');
+      editForm.classList.toggle('edit-form_opened');
+  } else {
+    popupSelect.classList.toggle('popup_opened');
+    editForm.classList.toggle('edit-form_opened');
     nameField.value = nameOutput.textContent;
     titleField.value = titleOutput.textContent;
   }
-
 }
 
 // Прикрепляем обработчик к форме:
 formElement.addEventListener('submit', formSubmitHandler);
 
-addCardButton.addEventListener('click', popupClassToggle, false);
-editButton.addEventListener('click', popupClassToggle, false);
-closeFormButton.addEventListener('click', popupClassToggle, false);
-closeCardButton.addEventListener('click', popupClassToggle, false);
+addCardButton.addEventListener('click', cardClassToggle, false);
+editButton.addEventListener('click', formClassToggle, false);
+closeFormButton.addEventListener('click', formClassToggle, false);
+closeCardButton.addEventListener('click', cardClassToggle, false);

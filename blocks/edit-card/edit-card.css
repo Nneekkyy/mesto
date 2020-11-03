@@ -2,7 +2,7 @@
   width: 430px;
   margin: 0 auto;
   z-index: 4;
-  /* display: none; */
+  display: none;
 }
 
 @media screen and (max-width: 680px) {
