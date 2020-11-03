@@ -4,7 +4,7 @@ let titleOutput =  document.querySelector('.profile__title');
 let formElement = document.querySelector('.edit-form__fields');
 let popupSelect = document.querySelector('.popup');
 let editForm = document.querySelector('.edit-form');
-let cardForm = document.querySelector('.card-form');
+let cardForm = document.querySelector('.edit-card');
 const cardContainer = document.querySelector('.elements__list');
 
 // переменные для всех кнопок
