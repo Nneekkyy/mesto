@@ -6,14 +6,16 @@ let cardElement = document.querySelector('.add-card__fields');
 let popupSelect = document.querySelector('.popup');
 let editForm = document.querySelector('.edit-form');
 let cardForm = document.querySelector('.add-card');
+const imageForm = document.querySelector('.image-popup');
 const cardContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card').content;
-
+let imagePlace = document.querySelector('.image-popup__image');
 
 // переменные для всех кнопок
 let editButton = document.querySelector('.profile__edit');
 let closeFormButton = document.querySelector('.edit-form__close');
 let closeCardButton = document.querySelector('.add-card__close');
+let closeImageButton = document.querySelector('.image-popup__close');
 let saveButton = document.querySelector('.edit-form__button');
 let addCardButton = document.querySelector('.profile__add');
 let saveCardButton = document.querySelector('.add-card__button');
@@ -125,7 +127,29 @@ function cardClassToggle() {
 
   }
 }
+//функция открытия превью картинки
 
+currentDocument.addEventListener('click', function (event) {
+
+  if (event.target.classList.contains('element__image')) {
+    popupShow();
+    imageForm.classList.add('image-popup_opened');
+
+    initialCards = event.target.querySelector('.element__image').src = imagePlace.value;
+  }
+  if (event.target.classList.contains('image-popup__close')) {
+    imageForm.classList.remove('image-popup_opened');
+    popupShow();
+  }
+});
+
+document.addEventListener('click',e => console.log(e.target));
+
+initialCards.forEach(item => {
+  document.addEventListener("click", (e) => {
+    console.log(e.currentTarget.getAttribute("src"));
+  });
+});
 // добавление/удалений лайка на карточке
 
 currentDocument.addEventListener('click', function (event) {
@@ -149,8 +173,8 @@ currentDocument.addEventListener('click', function (event) {
 // Прикрепляем обработчик к форме:
 formElement.addEventListener('submit', formSubmitHandler);
 cardElement.addEventListener('submit', cardSubmitHandler);
-
 addCardButton.addEventListener('click', cardClassToggle, false);
 editButton.addEventListener('click', formClassToggle, false);
 closeFormButton.addEventListener('click', formClassToggle, false);
 closeCardButton.addEventListener('click', cardClassToggle, false);
+

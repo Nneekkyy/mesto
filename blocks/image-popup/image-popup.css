@@ -1,12 +1,13 @@
-.add-card {
-  width: 430px;
+.image-popup {
+  width: 75vw;
+  height: 75vh;
   margin: 0 auto;
   z-index: 4;
   display: none;
 }
 
 @media screen and (max-width: 680px) {
-  .add-card {
+  .image-popup {
     width: 282px;
   }
 }
