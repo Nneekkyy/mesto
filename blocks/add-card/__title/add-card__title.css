@@ -1,4 +1,4 @@
-.edit-card__title {
+.add-card__title {
   font-family: "Inter", Arial, sans-serif;
   font-style: normal;
   font-weight: 900;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .edit-card__title {
+  .add-card__title {
     font-size: 18px;
     margin-left: 22px;
     margin-top: 0;
