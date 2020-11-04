@@ -18,7 +18,9 @@ let saveButton = document.querySelector('.edit-form__button');
 let addCardButton = document.querySelector('.profile__add');
 let saveCardButton = document.querySelector('.add-card__button');
 
+// получение импортированного массива
 let currentDocument = document.currentScript.ownerDocument;
+
 //массив с карточками
 
 const initialCards = [
@@ -48,62 +50,12 @@ const initialCards = [
     }
 ];
 
-// функция добавления карточек из массива
-
-initialCards.forEach(function (element) {
-  const cardTemplate = document.querySelector('#card').content;
-  const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.element__image').src = element.link;
-  cardElement.querySelector('.element__name-title').textContent = element.name;
-  cardContainer.append(cardElement);
-});
-
-function addCard () {
-  let newCard = initialCards.slice(0,1);
-  newCard.forEach(function (element) {
-    const cardTemplate = document.querySelector('#card').content;
-    const cardElement = cardTemplate.cloneNode(true);
-    cardElement.querySelector('.element__image').src = element.link;
-    cardElement.querySelector('.element__name-title').textContent = element.name;
-    cardContainer.prepend(cardElement);
-  });
- }
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-
-
-
-function formSubmitHandler (evt) {
-    evt.preventDefault();
-
-    nameOutput.textContent = nameField.value;
-    titleOutput.textContent = titleField.value;
-    formClassToggle ();
-}
-
-function cardSubmitHandler (evt) {
-  evt.preventDefault();
-
-  initialCards.unshift({name: placeField.value , link: sourceField.value});
-  cardClassToggle ();
-  addCard();
-  placeField.value = '';
-  sourceField.value = '';
-  console.log (initialCards);
-}
+//функции открытия/закрытия попапа и формы редактирования профиля
 
 function popupShow() {
   popupSelect.classList.toggle('popup_opened');
 }
 
-function cardClassToggle() {
-  if (cardForm.classList.contains('add-card')) {
-      popupShow();
-      cardForm.classList.toggle('add-card_opened');
-
-  }
-}
 
 function formClassToggle() {
   if (editForm.classList.contains('edit-form_opened')) {
@@ -118,6 +70,81 @@ function formClassToggle() {
   }
 }
 
+// отправление данных из профиля в форму редактирования
+
+function formSubmitHandler (evt) {
+    evt.preventDefault();
+
+    nameOutput.textContent = nameField.value;
+    titleOutput.textContent = titleField.value;
+    formClassToggle ();
+}
+
+// создание динамических карточек из массива
+
+initialCards.forEach(function (element) {
+  const cardTemplate = document.querySelector('#card').content;
+  const cardElement = cardTemplate.cloneNode(true);
+  cardElement.querySelector('.element__image').src = element.link;
+  cardElement.querySelector('.element__name-title').textContent = element.name;
+  cardContainer.append(cardElement);
+});
+
+// функция добавления карточки на первое место в списке
+
+function addCard () {
+  let newCard = initialCards.slice(0,1);
+  newCard.forEach(function (element) {
+    const cardTemplate = document.querySelector('#card').content;
+    const cardElement = cardTemplate.cloneNode(true);
+    cardElement.querySelector('.element__image').src = element.link;
+    cardElement.querySelector('.element__name-title').textContent = element.name;
+    cardContainer.prepend(cardElement);
+  });
+ }
+
+ //функция отправки данных из формы добавления карточки в массив
+
+function cardSubmitHandler (evt) {
+  evt.preventDefault();
+
+  initialCards.unshift({name: placeField.value , link: sourceField.value});
+  cardClassToggle ();
+  addCard();
+  placeField.value = '';
+  sourceField.value = '';
+  console.log (initialCards);
+}
+
+//функция открытия формы добавления карточки
+
+function cardClassToggle() {
+  if (cardForm.classList.contains('add-card')) {
+      popupShow();
+      cardForm.classList.toggle('add-card_opened');
+
+  }
+}
+
+// добавление/удалений лайка на карточке
+
+currentDocument.addEventListener('click', function (event) {
+
+  if (event.target.classList.contains('element__button-like')) {
+    event.target.classList.toggle('element__button-like_active');
+  }
+});
+
+//удаление карточки по нажатию на корзину
+
+currentDocument.addEventListener('click', function (event) {
+
+  if (event.target.classList.contains('element__button-trash')) {
+    const currentDocument = event.target.closest('.element');
+    currentDocument.remove();
+  }
+});
+
 
 // Прикрепляем обработчик к форме:
 formElement.addEventListener('submit', formSubmitHandler);
@@ -127,21 +154,3 @@ addCardButton.addEventListener('click', cardClassToggle, false);
 editButton.addEventListener('click', formClassToggle, false);
 closeFormButton.addEventListener('click', formClassToggle, false);
 closeCardButton.addEventListener('click', cardClassToggle, false);
-
-
-
-currentDocument.addEventListener('click', function (event) {
-
-  if (event.target.classList.contains('element__button-like')) {
-    event.target.classList.toggle('element__button-like_active');
-  }
-});
-
-
-currentDocument.addEventListener('click', function (event) {
-
-  if (event.target.classList.contains('element__button-trash')) {
-    const currentDocument = event.target.closest('.element');
-    currentDocument.remove();
-  }
-});
