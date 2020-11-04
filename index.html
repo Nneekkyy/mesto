@@ -27,6 +27,7 @@
       </section>
       <section class="elements">
         <ul class="elements__list">
+
         </ul>
       </section>
     </main>
@@ -46,27 +47,28 @@
             </form>
           </div>
         </section>
-        <section class="edit-card">
-          <button class="edit-card__close" type="button"></button>
-          <div class="edit-card__area">
-            <h2 class="edit-card__title">Новое место</h2>
-            <form class="edit-card__fields" name="edit-cards">
-              <input id="placeField" class="edit-card__field" type="text" name="name" placeholder="Название" value="" required>
-              <input id="sourceField" class="edit-card__field" type="text" name="about" placeholder="Ссылка на картинку" value="" required>
-              <input class="edit-card__button" type="submit" value="Создать">
+        <section class="add-card">
+          <button class="add-card__close" type="button"></button>
+          <div class="add-card__area">
+            <h2 class="add-card__title">Новое место</h2>
+            <form class="add-card__fields" name="add-cards">
+              <input id="placeField" class="add-card__field" type="text" name="place" placeholder="Название" value="" required>
+              <input id="sourceField" class="add-card__field" type="text" name="src" placeholder="Ссылка на картинку" value="" required>
+              <input class="add-card__button" type="submit" value="Создать">
             </form>
           </div>
         </section>
       </div>
     </div>
   </div>
+
   <template id="card">
     <li class="element">
       <img class="element__image" src="" alt="Изображение в карточке">
       <button class="element__button-trash" type="button"></button>
       <div class="element__name-place">
         <h2 class="element__name-title"></h2>
-        <button class="element__button-like" type="button"></button>
+        <button id = "like" class="element__button-like" type="button"></button>
       </div>
     </li>
   </template>

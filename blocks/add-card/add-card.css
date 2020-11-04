@@ -1,4 +1,4 @@
-.edit-card {
+.add-card {
   width: 430px;
   margin: 0 auto;
   z-index: 4;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .edit-card {
+  .add-card {
     width: 282px;
   }
 }

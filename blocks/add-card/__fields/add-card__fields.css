@@ -1,4 +1,4 @@
-.edit-card__fields {
+.add-card__fields {
   width: 358px;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .edit-card__fields {
+  .add-card__fields {
   margin-left: 22px;
   }
 }

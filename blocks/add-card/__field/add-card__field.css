@@ -1,4 +1,4 @@
-.edit-card__field {
+.add-card__field {
   width: 353px;
   padding: 0 0 10px 0;
   margin-bottom: 30px;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .edit-card__field {
+  .add-card__field {
     width: 238px;
   }
 }
