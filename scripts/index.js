@@ -1,7 +1,7 @@
 // переменные классов
 const nameOutput = document.querySelector('.profile__name');
 const titleOutput =  document.querySelector('.profile__title');
-const formElement = document.querySelector('.edit-form__fields');
+const formProfile = document.querySelector('.edit-form__fields');
 const cardElement = document.querySelector('.add-card__fields');
 const popupSelect = document.querySelector('.popup');
 const editForm = document.querySelector('.edit-form');
@@ -20,9 +20,6 @@ const closeImageButton = document.querySelector('.image-popup__close');
 const saveButton = document.querySelector('.edit-form__button');
 const addCardButton = document.querySelector('.profile__add');
 const saveCardButton = document.querySelector('.add-card__button');
-
-// получение импортированного массива
-let currentDocument = document.currentScript.ownerDocument;
 
 //массив с карточками
 
@@ -133,7 +130,7 @@ function toggleCardClass() {
 }
 //функция открытия превью картинки
 
-currentDocument.addEventListener('click', function (event) {
+cardContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('element__image')) {
     showPopup();
@@ -145,7 +142,7 @@ currentDocument.addEventListener('click', function (event) {
   }
 });
 //функция передачи картинки из карточки в попап
-currentDocument.addEventListener('click', function (event) {
+cardContainer.addEventListener('click', function (event) {
   if (event.target.classList.contains('element__image')) {
     imagePlace.src = event.target.getAttribute("src");
     signPlace.textContent = event.target.getAttribute("alt");
@@ -157,7 +154,7 @@ currentDocument.addEventListener('click', function (event) {
 
 // добавление/удалений лайка на карточке
 
-currentDocument.addEventListener('click', function (event) {
+cardContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('element__button-like')) {
     event.target.classList.toggle('element__button-like_active');
@@ -166,19 +163,21 @@ currentDocument.addEventListener('click', function (event) {
 
 //удаление карточки по нажатию на корзину
 
-currentDocument.addEventListener('click', function (event) {
+cardContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('element__button-trash')) {
-    const currentDocument = event.target.closest('.element');
-    currentDocument.remove();
+    const cardContainer = event.target.closest('.element');
+    cardContainer.remove();
   }
 });
 
 
 // Прикрепляем обработчик к форме:
-formElement.addEventListener('submit', formSubmitHandler);
+formProfile.addEventListener('submit', formSubmitHandler);
 cardElement.addEventListener('submit', cardSubmitHandler);
 addCardButton.addEventListener('click', toggleCardClass, false);
 editButton.addEventListener('click', changeFormClass, false);
+// сделать отдельную функцию на закрытие всех попапов
 closeFormButton.addEventListener('click', changeFormClass, false);
 closeCardButton.addEventListener('click', toggleCardClass, false);
+closeImageButton.addEventListener('click', toggleCardClass, false);
