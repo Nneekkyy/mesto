@@ -8,5 +8,5 @@
   z-index: 2;
   overflow: hidden;
   opacity: 0;
-  transition: height 0ms 400ms, opacity 0.5s linear;
+  transition: height 500ms 400ms, opacity 0.5s linear;
 }
