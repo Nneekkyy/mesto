@@ -27,48 +27,7 @@
       </section>
       <section class="elements">
         <ul class="elements__list">
-          <li class="element">
-            <img class="element__image" src="./images/elements-karachaevo.png" alt="заброшенное здание">
-            <div class="element__name-place">
-              <h2 class="element__name-title">Карачаево-Черкесия</h2>
-              <button class="element__button-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elements-elbrus.png" alt="Гора эльбрус со степью">
-            <div class="element__name-place">
-              <h2 class="element__name-title">Гора Эльбрус</h2>
-              <button class="element__button-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elements-dombay.png" alt="Заснеженная гора">
-            <div class="element__name-place">
-              <h2 class="element__name-title">Домбай</h2>
-              <button class="element__button-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elements-elbrus.png" alt="Гора эльбрус со степью">
-            <div class="element__name-place">
-              <h2 class="element__name-title">Гора Эльбрус</h2>
-              <button class="element__button-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elements-dombay.png" alt="Заснеженная гора">
-            <div class="element__name-place">
-              <h2 class="element__name-title">Домбай</h2>
-              <button class="element__button-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elements-karachaevo.png" alt="заброшенное здание">
-            <div class="element__name-place">
-              <h2 class="element__name-title">Карачаево-Черкесия</h2>
-              <button class="element__button-like" type="button"></button>
-            </div>
-          </li>
+
         </ul>
       </section>
     </main>
@@ -81,16 +40,43 @@
           <button class="edit-form__close" type="button"></button>
           <div class="edit-form__area">
             <h2 class="edit-form__title">Редактировать профиль</h2>
-            <form class="edit-form__fields" name="edit-form">
+            <form class="edit-form__fields" name="edit-forms">
               <input id="nameField" class="edit-form__field" type="text" name="name" placeholder="Имя" value="" required>
               <input id="titleField" class="edit-form__field" type="text" name="about" placeholder="О себе" value="" required>
               <input class="edit-form__button" type="submit" value="Сохранить">
             </form>
           </div>
         </section>
+        <section class="add-card">
+          <button class="add-card__close" type="button"></button>
+          <div class="add-card__area">
+            <h2 class="add-card__title">Новое место</h2>
+            <form class="add-card__fields" name="add-cards">
+              <input id="placeField" class="add-card__field" type="text" name="place" placeholder="Название" value="" required>
+              <input id="sourceField" class="add-card__field" type="text" name="src" placeholder="Ссылка на картинку" value="" required>
+              <input class="add-card__button" type="submit" value="Создать">
+            </form>
+          </div>
+        </section>
+        <section class="image-popup">
+          <button class="image-popup__close" type="button"></button>
+          <img class="image-popup__image" src="" alt="">
+          <p class="image-popup__sign"></p>
+        </section>
       </div>
     </div>
   </div>
+
+  <template id="card">
+    <li class="element">
+      <img class="element__image" src="" alt="">
+      <button class="element__button-trash" type="button"></button>
+      <div class="element__name-place">
+        <h2 class="element__name-title"></h2>
+        <button id = "like" class="element__button-like" type="button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 
