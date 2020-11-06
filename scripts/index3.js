@@ -71,7 +71,11 @@ function transferFromEdit() {
 }
 
 //реализация добавления карточек
-initialCards.forEach(function (element) {
+const mapCards = initialCards.map (function (el) {
+    return el;
+});
+function 
+mapCards.forEach(function (element) {
   const cardElement = cardTemplate.cloneNode(true);
   let elementImage = cardElement.querySelector('.element__image');
   elementImage.src = element.link;
@@ -79,7 +83,17 @@ initialCards.forEach(function (element) {
   cardElement.querySelector('.element__name-title').textContent = element.name;
   cardContainer.append(cardElement);
 });
-
+function addCard () {
+  let newCard = mapCards.slice(0,1);
+  newCard.forEach(function (element) {
+    const cardElement = cardTemplate.cloneNode(true);
+    let elementImage = cardElement.querySelector('.element__image');
+    elementImage.src = element.link;
+    elementImage.alt = element.name;
+    cardElement.querySelector('.element__name-title').textContent = element.name;
+    cardContainer.prepend(cardElement);
+  });
+ }
 //обраточики кликов по всем кнопкам
 //всё для Edit
 openEditButton.addEventListener('click', function (event) {
@@ -102,7 +116,12 @@ openAddButton.addEventListener('click', function (event) {
   placeField.value = '';
   sourceField.value = '';
 });
-
+saveAddButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  initialCards.unshift({name: placeField.value , link: sourceField.value});
+  addCard();
+  closePopup(addCardPopup);
+});
 closeAddButton.addEventListener('click', function (event) {
   closePopup(addCardPopup);
 });
