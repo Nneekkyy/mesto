@@ -1,10 +1,10 @@
 // переменные классов
 const nameOutput = document.querySelector('.profile__name');
 const titleOutput =  document.querySelector('.profile__title');
-const formProfile = document.querySelector('.edit-form__fields');
+const formProfile = document.querySelector('.popup__fields');
 const cardElement = document.querySelector('.add-card__fields');
-const popupSelect = document.querySelector('.popup');
-const editForm = document.querySelector('.edit-form');
+const popup = document.querySelector('.popup');
+const editForm = document.querySelector('.popup_edit-from');
 const cardForm = document.querySelector('.add-card');
 const imageForm = document.querySelector('.image-popup');
 const cardContainer = document.querySelector('.elements__list');
@@ -12,14 +12,13 @@ const cardTemplate = document.querySelector('#card').content;
 const imagePlace = document.querySelector('.image-popup__image');
 const signPlace = document.querySelector('.image-popup__sign');
 
+
+
 // переменные для всех кнопок
 const editButton = document.querySelector('.profile__edit');
-const closeFormButton = document.querySelector('.edit-form__close');
-const closeCardButton = document.querySelector('.add-card__close');
-const closeImageButton = document.querySelector('.image-popup__close');
-const saveButton = document.querySelector('.edit-form__button');
-const addCardButton = document.querySelector('.profile__add');
-const saveCardButton = document.querySelector('.add-card__button');
+const addButton = document.querySelector('.profile__add');
+const saveButton = document.querySelector('.popup__button');
+const closeButton = document.querySelector('.popup__close');
 
 //массив с карточками
 
@@ -50,37 +49,50 @@ const initialCards = [
     }
 ];
 
-//функции открытия/закрытия попапа и формы редактирования профиля
+// функции открытия/закрытия попапа и формы редактирования профиля
 
-function showPopup() {
-  popupSelect.classList.toggle('popup_opened');
+const profilePopup = document.querySelector('.popup_edit-profile');
+const addPopup = document.querySelector('.popup_add-card');
+const imagePopup = document.querySelector('.popup_image');
+
+function openPopup(profilePopup) {
+  profilePopup.classList.add('popup_opened');
+}
+function openPopup(addPopup) {
+  addPopup.classList.add('popup_opened');
+}
+function openPopup(imagePopup) {
+  imagePopup.classList.add('popup_opened');
+}
+function closePopup() {
+  popup.classList.remove('popup_opened');
 }
 
-function toggleFormClass() {
-  editForm.classList.toggle('edit-form_opened');
-}
 
-function changeFormClass() {
-  if (editForm.classList.contains('edit-form_opened')) {
-      showPopup();
-      toggleFormClass();
-  } else {
-    showPopup();
-    toggleFormClass();
+function openProfileEdit() {
+    openPopup(profilePopup);
     nameField.value = nameOutput.textContent;
     titleField.value = titleOutput.textContent;
-  }
 }
 
-// отправление данных из профиля в форму редактирования
-
-function formSubmitHandler (evt) {
-    evt.preventDefault();
-
-    nameOutput.textContent = nameField.value;
-    titleOutput.textContent = titleField.value;
-    changeFormClass ();
+function saveProfileEdit(evt) {
+  evt.preventDefault();
+  nameOutput.textContent = nameField.value;
+  titleOutput.textContent = titleField.value;
+  closePopup ();
 }
+
+//функция открытия формы добавления карточки
+
+function openAddPopup() {
+  openPopup(addPopup);
+}
+
+editButton.addEventListener('click', openProfileEdit, false);
+addButton.addEventListener('click', openAddPopup, false);
+saveButton.addEventListener('click', saveProfileEdit, false);
+closeButton.addEventListener('click', closePopup, false);
+
 
 // создание динамических карточек из массива
 
@@ -113,7 +125,7 @@ function cardSubmitHandler (evt) {
   evt.preventDefault();
 
   initialCards.unshift({name: placeField.value , link: sourceField.value});
-  toggleCardClass ();
+  openPopup(addPopup);
   addCard();
   placeField.value = '';
   sourceField.value = '';
@@ -122,12 +134,12 @@ function cardSubmitHandler (evt) {
 
 //функция открытия формы добавления карточки
 
-function toggleCardClass() {
-  if (cardForm.classList.contains('add-card')) {
-      showPopup();
-      cardForm.classList.toggle('add-card_opened');
-  }
-}
+// function toggleCardClass() {
+//   if (cardForm.classList.contains('add-card')) {
+//       showPopup();
+//       cardForm.classList.toggle('add-card_opened');
+//   }
+// }
 //функция открытия превью картинки
 
 cardContainer.addEventListener('click', function (event) {
@@ -172,12 +184,13 @@ cardContainer.addEventListener('click', function (event) {
 });
 
 
+
 // Прикрепляем обработчик к форме:
-formProfile.addEventListener('submit', formSubmitHandler);
-cardElement.addEventListener('submit', cardSubmitHandler);
-addCardButton.addEventListener('click', toggleCardClass, false);
-editButton.addEventListener('click', changeFormClass, false);
-// сделать отдельную функцию на закрытие всех попапов
-closeFormButton.addEventListener('click', changeFormClass, false);
-closeCardButton.addEventListener('click', toggleCardClass, false);
-closeImageButton.addEventListener('click', toggleCardClass, false);
+// formProfile.addEventListener('submit', formSubmitHandler);
+// cardElement.addEventListener('submit', cardSubmitHandler);
+// addCardButton.addEventListener('click', toggleCardClass, false);
+// editButton.addEventListener('click', changeFormClass, false);
+// // сделать отдельную функцию на закрытие всех попапов
+// closeFormButton.addEventListener('click', changeFormClass, false);
+// closeCardButton.addEventListener('click', toggleCardClass, false);
+// closeImageButton.addEventListener('click', toggleCardClass, false);
