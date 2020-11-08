@@ -38,8 +38,8 @@ charset = utf-8
 
 trim_trailing_whitespace = true
 
-# Denotes whether file should end with a newline
+# Denotes whether file should end with a add-cardline
 
 # Possible values - true, false
 
-insert_final_newline = true
+insert_final_add-cardline = true
