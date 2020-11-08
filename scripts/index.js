@@ -73,7 +73,7 @@ function addCard(name, link) {
   prependContainer(name, link);
 }
 
-//открытия и закрытия попапа
+//открытие и закрытие попапа
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -152,7 +152,7 @@ closeImageButton.addEventListener('click', function () {
 });
 
 
-// добавление/удалений лайка на карточке
+// добавление/удаление лайка на карточке
 
 cardContainer.addEventListener('click', function (event) {
 
