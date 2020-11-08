@@ -136,17 +136,13 @@ function transferImageData() {
   signPlace.textContent = event.target.getAttribute("alt");
 }
 
-cardContainer.addEventListener('click', function (event) {
-
-
-});
 
 closeImageButton.addEventListener('click', function () {
   closePopup(imagePopup);
 });
 
 
-// добавление/удаление лайка на карточке
+// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
 
 cardContainer.addEventListener('click', function (event) {
 
@@ -159,11 +155,4 @@ cardContainer.addEventListener('click', function (event) {
     const cardContainer = event.target.closest('.element');
     cardContainer.remove();
   }
-});
-
-//удаление карточки по нажатию на корзину
-
-cardContainer.addEventListener('click', function (event) {
-
-
 });
