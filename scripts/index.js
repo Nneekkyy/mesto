@@ -138,10 +138,7 @@ function transferImageData() {
 
 cardContainer.addEventListener('click', function (event) {
 
-  if (event.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  }
+
 });
 
 closeImageButton.addEventListener('click', function () {
@@ -155,6 +152,12 @@ cardContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('element__button-like')) {
     event.target.classList.toggle('element__button-like_active');
+  } else  if (event.target.classList.contains('element__image')) {
+    openPopup(imagePopup);
+    transferImageData();
+  } else  if (event.target.classList.contains('element__button-trash')) {
+    const cardContainer = event.target.closest('.element');
+    cardContainer.remove();
   }
 });
 
@@ -162,8 +165,5 @@ cardContainer.addEventListener('click', function (event) {
 
 cardContainer.addEventListener('click', function (event) {
 
-  if (event.target.classList.contains('element__button-trash')) {
-    const cardContainer = event.target.closest('.element');
-    cardContainer.remove();
-  }
+
 });
