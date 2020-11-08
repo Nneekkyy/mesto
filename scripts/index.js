@@ -5,6 +5,9 @@ import {initialCards} from './CardsData.js';
 //поля edit
 const nameOutput = document.querySelector('.profile__name');
 const titleOutput =  document.querySelector('.profile__title');
+//поля карточек
+const addCardFields = document.querySelector('.popup__fields_add-card')
+const saveEditFields = document.querySelector('.popup__fields_edit-profile')
 //попапы edit add img
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
@@ -40,7 +43,7 @@ const mapCards = initialCards.map (function (element) {
 
 function createCard(name, link) {
   const cardElement = cardTemplate.cloneNode(true);
-  let elementImage = cardElement.querySelector('.element__image');
+  const elementImage = cardElement.querySelector('.element__image');
   elementImage.src = link;
   elementImage.alt = name;
   cardElement.querySelector(".element__name-title").textContent = name;
@@ -67,7 +70,6 @@ mapCards.forEach(function (card) {
 //добавлени карточки на первое место
 
 function addCard(name, link) {
-  createCard(name, link);
   prependContainer(name, link);
 }
 
@@ -106,7 +108,7 @@ closeEditButton.addEventListener('click', function (event) {
   closePopup(editProfilePopup);
 });
 
-saveEditButton.addEventListener('click', function (event) {
+saveEditFields.addEventListener('submit', function (event) {
   event.preventDefault();
   transferFromEdit();
   closePopup(editProfilePopup);
@@ -118,7 +120,8 @@ openAddButton.addEventListener('click', function (event) {
   placeField.value = '';
   sourceField.value = '';
 });
-saveAddButton.addEventListener('click', function (event) {
+
+addCardFields.addEventListener('submit', function (event) {
   event.preventDefault();
   const name = placeField.value;
   const link = sourceField.value;
