@@ -5,9 +5,6 @@ import {initialCards} from './CardsData.js';
 //поля edit
 const nameOutput = document.querySelector('.profile__name');
 const titleOutput =  document.querySelector('.profile__title');
-//поля карточек
-const addCardFields = document.querySelector('.popup__fields_add-card')
-const saveEditFields = document.querySelector('.popup__fields_edit-profile')
 //попапы edit add img
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
@@ -108,7 +105,7 @@ closeEditButton.addEventListener('click', function (event) {
   closePopup(editProfilePopup);
 });
 
-saveEditFields.addEventListener('submit', function (event) {
+editProfilePopup.addEventListener('submit', function (event) {
   event.preventDefault();
   transferFromEdit();
   closePopup(editProfilePopup);
@@ -121,7 +118,7 @@ openAddButton.addEventListener('click', function (event) {
   sourceField.value = '';
 });
 
-addCardFields.addEventListener('submit', function (event) {
+addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
   const name = placeField.value;
   const link = sourceField.value;
