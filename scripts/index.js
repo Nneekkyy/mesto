@@ -97,7 +97,6 @@ closeButton.addEventListener('click', closePopup, false);
 // создание динамических карточек из массива
 
 initialCards.forEach(function (element) {
-  const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.element__image').src = element.link;
   cardElement.querySelector('.element__image').alt = element.name;
