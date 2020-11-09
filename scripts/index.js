@@ -145,7 +145,6 @@ closeImageButton.addEventListener('click', function () {
 // открытые картинки, добавление/удаление лайка на карточке, удаление карточки
 
 cardContainer.addEventListener('click', function (event) {
-
   if (event.target.classList.contains('element__button-like')) {
     event.target.classList.toggle('element__button-like_active');
   } else  if (event.target.classList.contains('element__image')) {
@@ -155,4 +154,31 @@ cardContainer.addEventListener('click', function (event) {
     const cardContainer = event.target.closest('.element');
     cardContainer.remove();
   }
+});
+
+//закрытие попапа по клику вне контейнера
+document.addEventListener ('click', function (event) {
+  if (event.target === popupEdit || event.target === popupImage || event.target === popupAdd) {
+    closePopup(editProfilePopup);
+    closePopup(addCardPopup);
+    closePopup(imagePopup);
+  }
+});
+
+// закрытие попапа по нажатию Esc
+document.addEventListener('keydown', function(event) {
+    const keyCode = event.keyCode;
+    if (keyCode === 27) {
+      closePopup(editProfilePopup);
+      closePopup(addCardPopup);
+      closePopup(imagePopup);
+    }
+});
+
+
+
+
+
+document.addEventListener ('click', function (event) {
+  console.log(event.target);
 });
