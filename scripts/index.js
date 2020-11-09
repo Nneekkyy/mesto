@@ -21,9 +21,6 @@ const openAddButton = document.querySelector('.profile__add');
 const closeEditButton = document.querySelector('.popup__close_edit-profile');
 const closeAddButton = document.querySelector('.popup__close_add-card');
 const closeImageButton = document.querySelector('.popup__close_image')
-// кнопки сохранения форм редактирования и добавления
-const saveEditButton = document.querySelector('.popup__button_edit-profile');
-const saveAddButton = document.querySelector('.popup__button_add-card');
 //данные открытой фотографии
 const imagePlace =  document.querySelector('.popup__image-full');
 const signPlace =  document.querySelector('.popup__image-sign');
@@ -90,12 +87,12 @@ function transferFromEdit() {
 //обраточики кликов по всем кнопкам
 //всё для Edit
 
-openEditButton.addEventListener('click', function (event) {
+openEditButton.addEventListener('click', function () {
   openPopup(editProfilePopup);
   transferInEdit();
 });
 
-closeEditButton.addEventListener('click', function (event) {
+closeEditButton.addEventListener('click', function () {
   closePopup(editProfilePopup);
 });
 
@@ -106,7 +103,7 @@ editProfilePopup.addEventListener('submit', function (event) {
 });
 //всё для Add Image
 
-openAddButton.addEventListener('click', function (event) {
+openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
   placeField.value = '';
   sourceField.value = '';
@@ -119,7 +116,7 @@ addCardPopup.addEventListener('submit', function (event) {
   prependContainer(name, link);
   closePopup(addCardPopup);
 });
-closeAddButton.addEventListener('click', function (event) {
+closeAddButton.addEventListener('click', function () {
   closePopup(addCardPopup);
 });
 //всё для img
