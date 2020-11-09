@@ -64,12 +64,6 @@ mapCards.forEach(function (card) {
   appendContainer(card.name, card.link);
 });
 
-//добавлени карточки на первое место
-
-function addCard(name, link) {
-  prependContainer(name, link);
-}
-
 //открытие и закрытие попапа
 
 function openPopup(popup) {
@@ -122,7 +116,7 @@ addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
   const name = placeField.value;
   const link = sourceField.value;
-  addCard(name, link);
+  prependContainer(name, link);
   closePopup(addCardPopup);
 });
 closeAddButton.addEventListener('click', function (event) {
