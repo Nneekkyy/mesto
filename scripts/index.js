@@ -44,16 +44,7 @@ function createCard(name, link) {
   return cardElement;
 }
 
-// добавление карточки в начало контейнера
-
-// function appendContainer(name, link) {
-//   cardContainer.append(createCard(name, link));
-// }
-// // добавление карточки в конец контейнера
-//
-// function prependContainer(name, link) {
-//   cardContainer.prepend(createCard(name, link));
-// }
+// добавление карточки
 
 function addCard(name, link, isPrepend) {
     if (isPrepend) {
@@ -120,11 +111,11 @@ addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
   const name = placeField.value;
   const link = sourceField.value;
-  // const isPrepend = true;
+  const isPrepend = true;
   addCard(name, link, isPrepend);
   closePopup(addCardPopup);
   console.log(isPrepend);
-}, true);
+});
 
 closeAddButton.addEventListener('click', function () {
   closePopup(addCardPopup);
