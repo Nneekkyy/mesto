@@ -46,19 +46,26 @@ function createCard(name, link) {
 
 // добавление карточки в начало контейнера
 
-function appendContainer(name, link) {
-  cardContainer.append(createCard(name, link));
-}
-// добавление карточки в конец контейнера
+// function appendContainer(name, link) {
+//   cardContainer.append(createCard(name, link));
+// }
+// // добавление карточки в конец контейнера
+//
+// function prependContainer(name, link) {
+//   cardContainer.prepend(createCard(name, link));
+// }
 
-function prependContainer(name, link) {
-  cardContainer.prepend(createCard(name, link));
+function addCard(name, link, isPrepend) {
+    if (isPrepend) {
+        cardContainer.prepend(createCard(name, link));
+    } else {
+        cardContainer.append(createCard(name, link));
+    }
 }
-
 //обходим массив, чтоб создать карточки и добавить в конец контейнера
 
 mapCards.forEach(function (card) {
-  appendContainer(card.name, card.link);
+  addCard(card.name, card.link);
 });
 
 //открытие и закрытие попапа
@@ -113,9 +120,12 @@ addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
   const name = placeField.value;
   const link = sourceField.value;
-  prependContainer(name, link);
+  // const isPrepend = true;
+  addCard(name, link, isPrepend);
   closePopup(addCardPopup);
-});
+  console.log(isPrepend);
+}, true);
+
 closeAddButton.addEventListener('click', function () {
   closePopup(addCardPopup);
 });
