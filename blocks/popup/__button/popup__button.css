@@ -19,6 +19,10 @@
   opacity: 0.8;
 }
 
+.popup__button:invalid {
+  opacity: 0.2;
+}
+
 @media screen and (max-width: 680px) {
   .popup__button {
     width: 238px;

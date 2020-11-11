@@ -1,5 +1,6 @@
 //импортируем карточки
 import {initialCards} from './CardsData.js';
+import {initialCards} from './validate.js';
 
 //определяем элементы
 //поля edit
@@ -166,10 +167,4 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-
-
-
-
-document.addEventListener ('click', function (event) {
-  console.log(event.target);
-});
+document.addEventListener('click', (e) => console.log(e.target));
