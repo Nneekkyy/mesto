@@ -2,7 +2,7 @@
   background: #000000;
 }
 
-.popup__button:hover {
+.popup__button_active:hover {
   cursor: pointer;
   opacity: 0.8;
 }
