@@ -25,9 +25,12 @@ const checkInputValidity = (formElement, inputElement) => {
 //слушатель на input
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
+  const buttonElement = formElement.querySelector('.form__submit');
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
@@ -43,5 +46,19 @@ function enableValidation () {
 });
 }
 enableValidation ();
+//обход массива и проверка на валидность
+function hasInvalidInput (inputList) {
+  return inputList.some((inputElement) => {
+  return !inputElement.validity.valid;
+});
+}
+//переключение состояния кнопки
+function toggleButtonState (inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+  buttonElement.classList.add('button_inactive');
+} else {
+  buttonElement.classList.remove('button_inactive');
+}
+}
 // export
 export {enableValidation};
