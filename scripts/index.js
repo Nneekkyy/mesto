@@ -1,5 +1,6 @@
 //импортируем карточки
 import {initialCards} from './CardsData.js';
+import {enableValidation} from './validate.js';
 
 //определяем элементы
 //поля edit
@@ -9,6 +10,9 @@ const titleOutput =  document.querySelector('.profile__title');
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
 const imagePopup = document.querySelector('.popup_image');
+const popupField = document.querySelector('.popup__field');
+const popupsField = document.querySelector('.popup__fields');
+const errorInput = document.querySelector('form__input-error');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
 //template карточки
@@ -21,9 +25,6 @@ const openAddButton = document.querySelector('.profile__add');
 const closeEditButton = document.querySelector('.popup__close_edit-profile');
 const closeAddButton = document.querySelector('.popup__close_add-card');
 const closeImageButton = document.querySelector('.popup__close_image')
-// кнопки сохранения форм редактирования и добавления
-const saveEditButton = document.querySelector('.popup__button_edit-profile');
-const saveAddButton = document.querySelector('.popup__button_add-card');
 //данные открытой фотографии
 const imagePlace =  document.querySelector('.popup__image-full');
 const signPlace =  document.querySelector('.popup__image-sign');
@@ -47,28 +48,20 @@ function createCard(name, link) {
   return cardElement;
 }
 
-// добавление карточки в начало контейнера
+// добавление карточки
 
-function appendContainer(name, link) {
-  cardContainer.append(createCard(name, link));
+function addCard(name, link, isPrepend) {
+    if (isPrepend) {
+        cardContainer.prepend(createCard(name, link));
+    } else {
+        cardContainer.append(createCard(name, link));
+    }
 }
-// добавление карточки в конец контейнера
-
-function prependContainer(name, link) {
-  cardContainer.prepend(createCard(name, link));
-}
-
 //обходим массив, чтоб создать карточки и добавить в конец контейнера
 
 mapCards.forEach(function (card) {
-  appendContainer(card.name, card.link);
+  addCard(card.name, card.link);
 });
-
-//добавлени карточки на первое место
-
-function addCard(name, link) {
-  prependContainer(name, link);
-}
 
 //открытие и закрытие попапа
 
@@ -96,12 +89,12 @@ function transferFromEdit() {
 //обраточики кликов по всем кнопкам
 //всё для Edit
 
-openEditButton.addEventListener('click', function (event) {
+openEditButton.addEventListener('click', function () {
   openPopup(editProfilePopup);
   transferInEdit();
 });
 
-closeEditButton.addEventListener('click', function (event) {
+closeEditButton.addEventListener('click', function () {
   closePopup(editProfilePopup);
 });
 
@@ -112,7 +105,7 @@ editProfilePopup.addEventListener('submit', function (event) {
 });
 //всё для Add Image
 
-openAddButton.addEventListener('click', function (event) {
+openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
   placeField.value = '';
   sourceField.value = '';
@@ -122,10 +115,13 @@ addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
   const name = placeField.value;
   const link = sourceField.value;
-  addCard(name, link);
+  const isPrepend = true;
+  addCard(name, link, isPrepend);
   closePopup(addCardPopup);
+  console.log(isPrepend);
 });
-closeAddButton.addEventListener('click', function (event) {
+
+closeAddButton.addEventListener('click', function () {
   closePopup(addCardPopup);
 });
 //всё для img
@@ -145,7 +141,6 @@ closeImageButton.addEventListener('click', function () {
 // открытые картинки, добавление/удаление лайка на карточке, удаление карточки
 
 cardContainer.addEventListener('click', function (event) {
-
   if (event.target.classList.contains('element__button-like')) {
     event.target.classList.toggle('element__button-like_active');
   } else  if (event.target.classList.contains('element__image')) {
@@ -156,3 +151,24 @@ cardContainer.addEventListener('click', function (event) {
     cardContainer.remove();
   }
 });
+
+//закрытие попапа по клику вне контейнера
+document.addEventListener ('click', function (event) {
+  if (event.target === popupEdit || event.target === popupImage || event.target === popupAdd) {
+    closePopup(editProfilePopup);
+    closePopup(addCardPopup);
+    closePopup(imagePopup);
+  }
+});
+
+// закрытие попапа по нажатию Esc
+document.addEventListener('keydown', function(event) {
+    const keyCode = event.keyCode;
+    if (keyCode === 27) {
+      closePopup(editProfilePopup);
+      closePopup(addCardPopup);
+      closePopup(imagePopup);
+    }
+});
+
+document.addEventListener('click', (e) => console.log(e.target));
