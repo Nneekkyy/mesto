@@ -22,15 +22,34 @@ const checkInputValidity = (formElement, inputElement) => {
     hideInputError(formElement, inputElement);
   }
 };
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  console.log(hasInvalidInput(inputList));
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__button_inactive');
+  } else {
+    buttonElement.classList.remove('popup__button_inactive');
+  }
+};
 //слушатель на input
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
+  const buttonElement = formElement.querySelector('.popup__button');
+  toggleButtonState(inputList, buttonElement);
+
+    inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', function () {
+        checkInputValidity(formElement, inputElement);
+        toggleButtonState(inputList, buttonElement);
+      });
     });
-  });
-};
+  };
 //валидация
 function enableValidation () {
   const formList = Array.from(document.querySelectorAll('.popup__fields'));
@@ -43,19 +62,6 @@ function enableValidation () {
 });
 }
 enableValidation ();
-//обход массива и проверка на валидность
-function hasInvalidInput (inputList) {
-  return inputList.some((inputElement) => {
-  return !inputElement.validity.valid;
-});
-}
-//переключение состояния кнопки
-function toggleButtonState (inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-  buttonElement.classList.add('button_inactive');
-} else {
-  buttonElement.classList.remove('button_inactive');
-}
-}
+
 // export
 export {enableValidation};
