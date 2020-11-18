@@ -1,6 +1,6 @@
 //импортируем карточки
 import {initialCards} from './CardsData.js';
-// import enableValidation from './validate.js';
+import {enableValidation} from './validate.js';
 
 //определяем элементы
 //поля edit
@@ -10,6 +10,9 @@ const titleOutput =  document.querySelector('.profile__title');
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
 const imagePopup = document.querySelector('.popup_image');
+const popupField = document.querySelector('.popup__field');
+const popupsField = document.querySelector('.popup__fields');
+const errorInput = document.querySelector('form__input-error');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
 //template карточки
@@ -169,60 +172,3 @@ document.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('click', (e) => console.log(e.target));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add('form__input_type_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
-};
-
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
-  errorElement.textContent = '';
-};
-
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-    });
-  });
-};
-
-function enableValidation () {
-  const formList = Array.from(document.querySelectorAll('.form'));
-  formList.forEach((formElement) => {
-  formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-  });
-
-    setEventListeners(formElement);
-});
-}
-enableValidation ();
