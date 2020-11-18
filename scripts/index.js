@@ -120,7 +120,6 @@ addCardPopup.addEventListener('submit', function (event) {
   const isPrepend = true;
   addCard(name, link, isPrepend);
   closePopup(addCardPopup);
-  console.log(isPrepend);
 });
 
 closeAddButton.addEventListener('click', function () {
