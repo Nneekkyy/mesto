@@ -1,6 +1,8 @@
 //импортируем карточки
 import {initialCards} from './CardsData.js';
+
 import {enableValidation} from './validate.js';
+
 
 //определяем элементы
 //поля edit
