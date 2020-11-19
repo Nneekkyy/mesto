@@ -1,6 +1,6 @@
-//импортируем карточки
+//имопрт карточек и валидации
 import {initialCards} from './CardsData.js';
-import {enableValidation} from './validate.js';
+// import {enableValidation} from './validate.js';
 
 //определяем элементы
 //поля edit
@@ -10,9 +10,6 @@ const titleOutput =  document.querySelector('.profile__title');
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
 const imagePopup = document.querySelector('.popup_image');
-const popupField = document.querySelector('.popup__field');
-const popupsField = document.querySelector('.popup__fields');
-const errorInput = document.querySelector('form__input-error');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
 //template карточки
@@ -153,21 +150,16 @@ cardContainer.addEventListener('click', function (event) {
 
 //закрытие попапа по клику вне контейнера
 document.addEventListener ('click', function (event) {
-  if (event.target === popupEdit || event.target === popupImage || event.target === popupAdd) {
-    closePopup(editProfilePopup);
-    closePopup(addCardPopup);
-    closePopup(imagePopup);
+  if (event.target ===  document.querySelector('.popup_opened')) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
   }
 });
 
 // закрытие попапа по нажатию Esc
 document.addEventListener('keydown', function(event) {
-    const keyCode = event.keyCode;
-    if (keyCode === 27) {
-      closePopup(editProfilePopup);
-      closePopup(addCardPopup);
-      closePopup(imagePopup);
+    if (event.key === 'Enter') {
+      const popupOpened = document.querySelector('.popup_opened');
+      closePopup(popupOpened);
     }
 });
-
-document.addEventListener('click', (e) => console.log(e.target));
