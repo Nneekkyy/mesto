@@ -66,6 +66,7 @@ enableValidation({
   errorClass: 'popup__error_visible'
 });
 
+enableValidation(validationConfig);
 // //добавление ошибки
 // const showInputError = (formElement, inputElement, errorMessage) => {
 //   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
