@@ -2,6 +2,8 @@
 import {initialCards} from './CardsData.js';
 // import {enableValidation} from './validate.js';
 
+
+
 //определяем элементы
 //поля edit
 const nameOutput = document.querySelector('.profile__name');
