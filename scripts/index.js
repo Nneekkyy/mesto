@@ -34,6 +34,26 @@ const mapCards = initialCards.map (function (element) {
   return element
 });
 
+// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
+const handleLikeIcon = (evt) => {
+  if (evt.target.classList.contains('element__button-like')) {
+    evt.target.classList.toggle('element__button-like_active');
+  }
+};
+
+const handleImageOpen = (evt) => {
+  if (event.target.classList.contains('element__image')) {
+    openPopup(imagePopup);
+    transferImageData();
+  }
+};
+
+const handleTrashButton = (evt) => {
+  if (event.target.classList.contains('element__button-trash')) {
+      const cardContainer = event.target.closest('.element');
+      cardContainer.remove();
+  }
+};
 //добавление карточек
 // создание новой карточки
 
@@ -43,7 +63,9 @@ function createCard(name, link) {
   elementImage.src = link;
   elementImage.alt = name;
   cardElement.querySelector(".element__name-title").textContent = name;
-
+  cardContainer.addEventListener('click', handleLikeIcon);
+  cardContainer.addEventListener('click', handleImageOpen);
+  cardContainer.addEventListener('click', handleTrashButton);
   return cardElement;
 }
 
@@ -62,14 +84,24 @@ mapCards.forEach(function (card) {
   addCard(card.name, card.link);
 });
 
+//очистка ошибки при закрытии попапа
+const clearErrors = () => {
+  document.querySelectorAll('.popup__field-error').forEach((span) => {
+   span.textContent = '';
+  span.classList.remove('popup__field-error');
+  });
+  document.querySelectorAll('.popup__field').forEach((input) => {
+    input.classList.remove('popup__field_invalid');
+  });
+};
 //открытие и закрытие попапа
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  clearErrors();
 }
 
 //запись текущих данных профиля в Edit и обратно после редактирования
@@ -136,20 +168,6 @@ closeImageButton.addEventListener('click', function () {
   closePopup(imagePopup);
 });
 
-
-// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
-
-cardContainer.addEventListener('click', function (event) {
-  if (event.target.classList.contains('element__button-like')) {
-    event.target.classList.toggle('element__button-like_active');
-  } else  if (event.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  } else  if (event.target.classList.contains('element__button-trash')) {
-    const cardContainer = event.target.closest('.element');
-    cardContainer.remove();
-  }
-});
 
 //закрытие попапа по клику вне контейнера
 document.addEventListener ('click', function (event) {

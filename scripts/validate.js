@@ -5,6 +5,8 @@ function showInputError(form, input, config) {
     error.classList.add('popup__field-error');
     input.classList.add(config.inputInvalidClass);
 }
+
+
 //скрытие ошибки
 function hideInputError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
