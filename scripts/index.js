@@ -1,7 +1,7 @@
-//импортируем карточки
+//имопрт карточек и валидации
 import {initialCards} from './CardsData.js';
+// import {enableValidation} from './validate.js';
 
-import {enableValidation} from './validate.js';
 
 
 //определяем элементы
@@ -12,9 +12,6 @@ const titleOutput =  document.querySelector('.profile__title');
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
 const imagePopup = document.querySelector('.popup_image');
-const popupField = document.querySelector('.popup__field');
-const popupsField = document.querySelector('.popup__fields');
-const errorInput = document.querySelector('form__input-error');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
 //template карточки
@@ -23,6 +20,7 @@ const cardTemplate = document.querySelector('#card').content;
 //кнопки открытия попапов
 const openEditButton = document.querySelector('.profile__edit');
 const openAddButton = document.querySelector('.profile__add');
+const addButton = document.querySelector('.popup__button_add-card');
 //кнопки закрытия попапов
 const closeEditButton = document.querySelector('.popup__close_edit-profile');
 const closeAddButton = document.querySelector('.popup__close_add-card');
@@ -38,6 +36,26 @@ const mapCards = initialCards.map (function (element) {
   return element
 });
 
+// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
+const handleLikeIcon = (evt) => {
+  if (evt.target.classList.contains('element__button-like')) {
+    evt.target.classList.toggle('element__button-like_active');
+  }
+};
+
+const handleImageOpen = (evt) => {
+  if (event.target.classList.contains('element__image')) {
+    openPopup(imagePopup);
+    transferImageData();
+  }
+};
+
+const handleTrashButton = (evt) => {
+  if (event.target.classList.contains('element__button-trash')) {
+      const cardContainer = event.target.closest('.element');
+      cardContainer.remove();
+  }
+};
 //добавление карточек
 // создание новой карточки
 
@@ -47,6 +65,9 @@ function createCard(name, link) {
   elementImage.src = link;
   elementImage.alt = name;
   cardElement.querySelector(".element__name-title").textContent = name;
+  cardContainer.addEventListener('click', handleLikeIcon);
+  cardContainer.addEventListener('click', handleImageOpen);
+  cardContainer.addEventListener('click', handleTrashButton);
   return cardElement;
 }
 
@@ -65,14 +86,24 @@ mapCards.forEach(function (card) {
   addCard(card.name, card.link);
 });
 
+//очистка ошибки при закрытии попапа
+const clearErrors = () => {
+  document.querySelectorAll('.popup__field-error').forEach((span) => {
+   span.textContent = '';
+  span.classList.remove('popup__field-error');
+  });
+  document.querySelectorAll('.popup__field').forEach((input) => {
+    input.classList.remove('popup__field_invalid');
+  });
+};
 //открытие и закрытие попапа
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  clearErrors();
 }
 
 //запись текущих данных профиля в Edit и обратно после редактирования
@@ -109,8 +140,7 @@ editProfilePopup.addEventListener('submit', function (event) {
 
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
-  placeField.value = '';
-  sourceField.value = '';
+  addButton.classList.add('popup__button_inactive');
 });
 
 addCardPopup.addEventListener('submit', function (event) {
@@ -119,6 +149,8 @@ addCardPopup.addEventListener('submit', function (event) {
   const link = sourceField.value;
   const isPrepend = true;
   addCard(name, link, isPrepend);
+  placeField.value = '';
+  sourceField.value = '';
   closePopup(addCardPopup);
 });
 
@@ -139,37 +171,18 @@ closeImageButton.addEventListener('click', function () {
 });
 
 
-// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
-
-cardContainer.addEventListener('click', function (event) {
-  if (event.target.classList.contains('element__button-like')) {
-    event.target.classList.toggle('element__button-like_active');
-  } else  if (event.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  } else  if (event.target.classList.contains('element__button-trash')) {
-    const cardContainer = event.target.closest('.element');
-    cardContainer.remove();
-  }
-});
-
 //закрытие попапа по клику вне контейнера
 document.addEventListener ('click', function (event) {
-  if (event.target === popupEdit || event.target === popupImage || event.target === popupAdd) {
-    closePopup(editProfilePopup);
-    closePopup(addCardPopup);
-    closePopup(imagePopup);
+  if (event.target ===  document.querySelector('.popup_opened')) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
   }
 });
 
 // закрытие попапа по нажатию Esc
 document.addEventListener('keydown', function(event) {
-    const keyCode = event.keyCode;
-    if (keyCode === 27) {
-      closePopup(editProfilePopup);
-      closePopup(addCardPopup);
-      closePopup(imagePopup);
+    if (event.key === 'Enter') {
+      const popupOpened = document.querySelector('.popup_opened');
+      closePopup(popupOpened);
     }
 });
-
-document.addEventListener('click', (e) => console.log(e.target));
