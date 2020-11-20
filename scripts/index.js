@@ -18,6 +18,7 @@ const cardTemplate = document.querySelector('#card').content;
 //кнопки открытия попапов
 const openEditButton = document.querySelector('.profile__edit');
 const openAddButton = document.querySelector('.profile__add');
+const addButton = document.querySelector('.popup__button_add-card');
 //кнопки закрытия попапов
 const closeEditButton = document.querySelector('.popup__close_edit-profile');
 const closeAddButton = document.querySelector('.popup__close_add-card');
@@ -42,6 +43,7 @@ function createCard(name, link) {
   elementImage.src = link;
   elementImage.alt = name;
   cardElement.querySelector(".element__name-title").textContent = name;
+
   return cardElement;
 }
 
@@ -104,8 +106,7 @@ editProfilePopup.addEventListener('submit', function (event) {
 
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
-  placeField.value = '';
-  sourceField.value = '';
+  addButton.classList.add('popup__button_inactive');
 });
 
 addCardPopup.addEventListener('submit', function (event) {
@@ -114,6 +115,8 @@ addCardPopup.addEventListener('submit', function (event) {
   const link = sourceField.value;
   const isPrepend = true;
   addCard(name, link, isPrepend);
+  placeField.value = '';
+  sourceField.value = '';
   closePopup(addCardPopup);
 });
 
