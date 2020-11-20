@@ -67,3 +67,4 @@ const validationConfig = {
 };
 
 enableValidation(validationConfig);
+
