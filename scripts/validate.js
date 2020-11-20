@@ -1,67 +1,69 @@
 //добавление ошибки
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add('popup__field_invalid');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__field-error');
-};
+function showInputError(form, input, config) {
+    const error = form.querySelector(`#${input.id}-error`);
+    error.textContent = input.validationMessage;
+    error.classList.add('popup__field-error');
+    input.classList.add(config.inputInvalidClass);
+}
+
 
 //скрытие ошибки
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('popup__field_invalid');
-  errorElement.classList.remove('popup__field-error');
-  errorElement.textContent = '';
-};
-
-//проверка валидности форм
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__button_inactive');
-  } else {
-    buttonElement.classList.remove('popup__button_inactive');
-  }
-};
-//слушатель на input
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
-  const buttonElement = formElement.querySelector('.popup__button');
-  toggleButtonState(inputList, buttonElement);
-
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function () {
-        checkInputValidity(formElement, inputElement);
-        toggleButtonState(inputList, buttonElement);
-      });
-    });
-  };
-//валидация
-function enableValidation () {
-  const formList = Array.from(document.querySelectorAll('.popup__fields'));
-  formList.forEach((formElement) => {
-  formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-  });
-
-    setEventListeners(formElement);
-});
+function hideInputError(form, input, config) {
+    const error = form.querySelector(`#${input.id}-error`);
+    error.textContent = '';
+    error.classList.remove('popup__field-error');
+    input.classList.remove(config.inputInvalidClass);
 }
-enableValidation ();
+//проверка на валидность
+function checkInputValidity(form, input, config) {
+    if (!input.validity.valid) {
+        showInputError(form, input, config);
+    } else {
+        hideInputError(form, input, config);
+    }
+}
+//изменение состояния ошибки
+function toggleButtonState(button, isActive, config) {
+    if (isActive) {
+        button.classList.remove(config.buttonInvalidClass);
+    } else {
+        button.classList.add(config.buttonInvalidClass);
+    }
+}
+//слушатель на кнопки и инпуты
+function setEventListeners(form, config) {
+    const inputsList = form.querySelectorAll(config.inputSelector);
+    const submitButton = form.querySelector(config.submitButtonSelector);
 
-// export
-export {enableValidation};
+    inputsList.forEach((input) => {
+        input.addEventListener('input', () => {
+            checkInputValidity(form, input, config);
+            toggleButtonState(submitButton, form.checkValidity(), config);
+        });
+    });
+}
+//валидация
+function enableValidation(config) {
+    const forms = document.querySelectorAll(config.formSelector);
+    forms.forEach((form) => {
+        setEventListeners(form, config);
+
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        });
+
+        const submitButton = form.querySelector(config.submitButtonSelector);
+        toggleButtonState(submitButton, form.checkValidity(), config)
+    });
+}
+//конфиг валидации
+const validationConfig = {
+    formSelector: '.popup__fields',
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__button',
+    inputInvalidClass: 'popup__field_invalid',
+    buttonInvalidClass: 'popup__button_inactive',
+};
+
+enableValidation(validationConfig);
 
