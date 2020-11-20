@@ -11,7 +11,7 @@ function showInputError(form, input, config) {
 function hideInputError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = '';
-    error.classList.remove('popup__field-error');
+    error.classList.remove(config.inputErrorClass);
     input.classList.remove(config.inputInvalidClass);
 }
 //проверка на валидность
@@ -62,6 +62,7 @@ const validationConfig = {
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__button',
     inputInvalidClass: 'popup__field_invalid',
+    inputErrorClass: 'popup__field-error',
     buttonInvalidClass: 'popup__button_inactive',
 };
 
