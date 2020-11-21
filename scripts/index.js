@@ -44,14 +44,14 @@ const handleLikeIcon = (evt) => {
 };
 
 const handleImageOpen = (evt) => {
-  if (event.target.classList.contains('element__image')) {
+  if (evt.target.classList.contains('element__image')) {
     openPopup(imagePopup);
     transferImageData();
   }
 };
 
 const handleTrashButton = (evt) => {
-  if (event.target.classList.contains('element__button-trash')) {
+  if (evt.target.classList.contains('element__button-trash')) {
       const cardContainer = event.target.closest('.element');
       cardContainer.remove();
   }
@@ -96,13 +96,26 @@ const clearErrors = () => {
     input.classList.remove('popup__field_invalid');
   });
 };
-//открытие и закрытие попапа
+
+// закрытие попапа по нажатию Esc
+const escButton = 27;
+
+const closeAtEscButton = (evt) => {
+  if (evt.keyCode === escButton) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+};
+
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeAtEscButton);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeAtEscButton);
   clearErrors();
 }
 
@@ -149,8 +162,7 @@ addCardPopup.addEventListener('submit', function (event) {
   const link = sourceField.value;
   const isPrepend = true;
   addCard(name, link, isPrepend);
-  placeField.value = '';
-  sourceField.value = '';
+  document.getElementById("popupForm").reset();
   closePopup(addCardPopup);
 });
 
@@ -173,16 +185,8 @@ closeImageButton.addEventListener('click', function () {
 
 //закрытие попапа по клику вне контейнера
 document.addEventListener ('click', function (event) {
-  if (event.target ===  document.querySelector('.popup_opened')) {
-    const popupOpened = document.querySelector('.popup_opened');
+  const popupOpened = document.querySelector('.popup_opened');
+  if (event.target ===  popupOpened) {
     closePopup(popupOpened);
   }
-});
-
-// закрытие попапа по нажатию Esc
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      const popupOpened = document.querySelector('.popup_opened');
-      closePopup(popupOpened);
-    }
 });
