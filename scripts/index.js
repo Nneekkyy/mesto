@@ -33,7 +33,7 @@ const signPlace =  document.querySelector('.popup__image-sign');
 const mapCards = initialCards.map (function (element) {
   return element
 });
-console.log(mapCards);
+
 // открытые картинки, добавление/удаление лайка на карточке, удаление карточки
 const handleLikeIcon = (evt) => {
   if (evt.target.classList.contains('element__button-like')) {
@@ -54,16 +54,16 @@ const handleTrashButton = (evt) => {
       cardContainer.remove();
   }
 };
-//добавление карточек
-// создание новой карточки
+// создание новых карточек
 class Card {
-  constructor(name, link) {
-    this.name = name;
-    this.link = link;
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._cardSelector = cardSelector;
   }
   _getTemplate() {
    const cardElement = document
-     .querySelector('#card')
+     .querySelector(this._cardSelector)
      .content
      .querySelector('.element')
      .cloneNode(true);
@@ -72,15 +72,14 @@ class Card {
  }
  generateCard() {
   this._element = this._getTemplate();
+  this._element.querySelector('.element__name-title').textContent = this._name;
   this._element.querySelector('.element__image').src = this._link;
   this._element.querySelector('.element__image').alt = this._name;
-  this._element.querySelector('.element__name-title').textContent = this._name;
-
   return this._element;
 }
 }
 mapCards.forEach((item) => {
-	const card = new Card(item.link, item.name);
+	const card = new Card(item, '#card');
 	const cardElement = card.generateCard();
 
   cardContainer.append(cardElement);
