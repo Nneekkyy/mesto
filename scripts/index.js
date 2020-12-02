@@ -2,8 +2,6 @@
 import {initialCards} from './CardsData.js';
 // import {enableValidation} from './validate.js';
 
-
-
 //определяем элементы
 //поля edit
 const nameOutput = document.querySelector('.profile__name');
@@ -35,7 +33,7 @@ const signPlace =  document.querySelector('.popup__image-sign');
 const mapCards = initialCards.map (function (element) {
   return element
 });
-
+console.log(mapCards);
 // открытые картинки, добавление/удаление лайка на карточке, удаление карточки
 const handleLikeIcon = (evt) => {
   if (evt.target.classList.contains('element__button-like')) {
@@ -58,33 +56,61 @@ const handleTrashButton = (evt) => {
 };
 //добавление карточек
 // создание новой карточки
+class Card {
+  constructor(name, link) {
+    this.name = name;
+    this.link = link;
+  }
+  _getTemplate() {
+   const cardElement = document
+     .querySelector('#card')
+     .content
+     .querySelector('.element')
+     .cloneNode(true);
 
-function createCard(name, link) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const elementImage = cardElement.querySelector('.element__image');
-  elementImage.src = link;
-  elementImage.alt = name;
-  cardElement.querySelector(".element__name-title").textContent = name;
-  cardContainer.addEventListener('click', handleLikeIcon);
-  cardContainer.addEventListener('click', handleImageOpen);
-  cardContainer.addEventListener('click', handleTrashButton);
-  return cardElement;
+   return cardElement;
+ }
+ generateCard() {
+  this._element = this._getTemplate();
+  this._element.querySelector('.element__image').src = this._link;
+  this._element.querySelector('.element__image').alt = this._name;
+  this._element.querySelector('.element__name-title').textContent = this._name;
+
+  return this._element;
 }
+}
+mapCards.forEach((item) => {
+	const card = new Card(item.link, item.name);
+	const cardElement = card.generateCard();
+
+  cardContainer.append(cardElement);
+});
+// function createCard(name, link) {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   const elementImage = cardElement.querySelector('.element__image');
+//   elementImage.src = link;
+//   elementImage.alt = name;
+//   cardElement.querySelector(".element__name-title").textContent = name;
+//   cardContainer.addEventListener('click', handleLikeIcon);
+//   cardContainer.addEventListener('click', handleImageOpen);
+//   cardContainer.addEventListener('click', handleTrashButton);
+//   return cardElement;
+// }
 
 // добавление карточки
 
-function addCard(name, link, isPrepend) {
-    if (isPrepend) {
-        cardContainer.prepend(createCard(name, link));
-    } else {
-        cardContainer.append(createCard(name, link));
-    }
-}
+// function addCard(name, link, isPrepend) {
+//     if (isPrepend) {
+//         cardContainer.prepend(createCard(name, link));
+//     } else {
+//         cardContainer.append(createCard(name, link));
+//     }
+// }
 //обходим массив, чтоб создать карточки и добавить в конец контейнера
 
-mapCards.forEach(function (card) {
-  addCard(card.name, card.link);
-});
+// mapCards.forEach(function (card) {
+//   addCard(card.name, card.link);
+// });
 
 //очистка ошибки при закрытии попапа
 const clearErrors = () => {
@@ -124,12 +150,14 @@ function closePopup(popup) {
 function transferInEdit() {
   nameField.value = nameOutput.textContent;
   titleField.value = titleOutput.textContent;
-}
+};
 function transferFromEdit() {
   nameOutput.textContent = nameField.value;
   titleOutput.textContent = titleField.value;
+};
+function resetForm() {
+  document.getElementById("popupForm").reset();
 }
-
 
 
 //обраточики кликов по всем кнопкам
@@ -153,6 +181,7 @@ editProfilePopup.addEventListener('submit', function (event) {
 
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
+  resetForm();
   addButton.classList.add('popup__button_inactive');
 });
 
@@ -162,7 +191,7 @@ addCardPopup.addEventListener('submit', function (event) {
   const link = sourceField.value;
   const isPrepend = true;
   addCard(name, link, isPrepend);
-  document.getElementById("popupForm").reset();
+  resetForm();
   closePopup(addCardPopup);
 });
 
