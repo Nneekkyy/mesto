@@ -56,9 +56,9 @@ const mapCards = initialCards.map (function (element) {
 
 // создание новых карточек
 class Card {
-  constructor(name, link, cardSelector) {
-    this._name = name;
-    this._link = link;
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
   }
   _getTemplate() {
