@@ -2,8 +2,6 @@
 import {initialCards} from './CardsData.js';
 // import {enableValidation} from './validate.js';
 
-
-
 //определяем элементы
 //поля edit
 const nameOutput = document.querySelector('.profile__name');
@@ -37,54 +35,137 @@ const mapCards = initialCards.map (function (element) {
 });
 
 // открытые картинки, добавление/удаление лайка на карточке, удаление карточки
-const handleLikeIcon = (evt) => {
-  if (evt.target.classList.contains('element__button-like')) {
-    evt.target.classList.toggle('element__button-like_active');
-  }
-};
+// const handleLikeIcon = (evt) => {
+//   if (evt.target.classList.contains('element__button-like')) {
+//     evt.target.classList.toggle('element__button-like_active');
+//   }
+// };
+// const handleTrashButton = (evt) => {
+//   if (evt.target.classList.contains('element__button-trash')) {
+//       const cardContainer = event.target.closest('.element');
+//       cardContainer.remove();
+//   }
+// };
+// const handleImageOpen = (evt) => {
+//   if (evt.target.classList.contains('element__image')) {
+//     openPopup(imagePopup);
+//     transferImageData();
+//   }
+// };
 
-const handleImageOpen = (evt) => {
-  if (evt.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  }
-};
 
-const handleTrashButton = (evt) => {
-  if (evt.target.classList.contains('element__button-trash')) {
-      const cardContainer = event.target.closest('.element');
-      cardContainer.remove();
+// создание новых карточек
+class Card {
+  constructor(name, link, cardSelector) {
+    this._name = name;
+    this._link = link;
+    this._cardSelector = cardSelector;
   }
-};
-//добавление карточек
-// создание новой карточки
-
-function createCard(name, link) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const elementImage = cardElement.querySelector('.element__image');
-  elementImage.src = link;
-  elementImage.alt = name;
-  cardElement.querySelector(".element__name-title").textContent = name;
-  cardContainer.addEventListener('click', handleLikeIcon);
-  cardContainer.addEventListener('click', handleImageOpen);
-  cardContainer.addEventListener('click', handleTrashButton);
-  return cardElement;
+  _getTemplate() {
+   const cardElement = document
+     .querySelector(this._cardSelector)
+     .content
+     .querySelector('.element')
+     .cloneNode(true);
+   return cardElement;
+ }
+ _handleTrashButton(){
+   const cardContainer = event.target.closest('.element');
+   event.target.closest('.element').remove();
+ }
+ _handleLikeIcon(){
+   this._likeButton.classList.toggle('element__button-like_active');
+ }
+ _handleImageOpen(){
+       openPopup(imagePopup);
+       transferImageData();
+ }
+ _addListeners () {
+  this._deleteButton.addEventListener('click', () => {
+      this._handleTrashButton();
+    })
+  this._likeButton.addEventListener('click', () => {
+    this._handleLikeIcon();
+  })
+  this._cardImage.addEventListener('click', () => {
+    this._handleImageOpen();
+  })
 }
-
-// добавление карточки
-
-function addCard(name, link, isPrepend) {
-    if (isPrepend) {
-        cardContainer.prepend(createCard(name, link));
-    } else {
-        cardContainer.append(createCard(name, link));
-    }
+ generateCard() {
+  this._element = this._getTemplate();
+  this._element.querySelector('.element__name-title').textContent = this._name;
+  this._element.querySelector('.element__image').src = this._link;
+  this._element.querySelector('.element__image').alt = this._name;
+  this._likeButton = this._element.querySelector('.element__button-like');
+  this._deleteButton = this._element.querySelector('.element__button-trash');
+  this._cardImage = this._element.querySelector('.element__image');
+  this._addListeners();
+  return this._element;
 }
+}
+// function addCard(item, cardSelector, isPrepend) {
+//
+//     if (isPrepend) {
+//         cardContainer.prepend(cardElement);
+//     } else {
+//         cardContainer.append(cardElement);
+//     }
+//
+//   })
+// }
 //обходим массив, чтоб создать карточки и добавить в конец контейнера
 
-mapCards.forEach(function (card) {
-  addCard(card.name, card.link);
+mapCards.forEach(function (name, link, cardSelector) {
+  addCard(name, link);
 });
+function addCard(name, link, cardSelector) {
+  const card = new Card(name, link, '#card');
+  const cardElement = card.generateCard();
+  cardContainer.append(cardElement);
+}
+// mapCards.forEach((item, cardSelector) => {
+//
+// });
+// mapCards.forEach((item, cardSelector) => {
+//   const card = new Card(item.name, item.link, '#card');
+//   const cardElement = card.generateCard();
+//   cardContainer.append(cardElement);
+// });
+// mapCards.forEach((item) => {
+// 	const card = new Card(item, '#card');
+// 	const cardElement = card.generateCard();
+//
+//   cardContainer.append(cardElement);
+// });
+// function createCard(name, link) {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   const elementImage = cardElement.querySelector('.element__image');
+//   elementImage.src = link;
+//   elementImage.alt = name;
+//   cardElement.querySelector(".element__name-title").textContent = name;
+//   cardContainer.addEventListener('click', handleLikeIcon);
+//   cardContainer.addEventListener('click', handleImageOpen);
+//   cardContainer.addEventListener('click', handleTrashButton);
+//   return cardElement;
+// }
+
+// добавление карточки
+//
+// function addCard(item, cardSelector, isPrepend) {
+//
+//     if (isPrepend) {
+//         cardContainer.prepend(cardElement);
+//     } else {
+//         cardContainer.append(cardElement);
+//     }
+//
+//   })
+// }
+//обходим массив, чтоб создать карточки и добавить в конец контейнера
+
+// mapCards.forEach(function (card) {
+//   addCard(card.name, card.link);
+// });
 
 //очистка ошибки при закрытии попапа
 const clearErrors = () => {
@@ -124,12 +205,14 @@ function closePopup(popup) {
 function transferInEdit() {
   nameField.value = nameOutput.textContent;
   titleField.value = titleOutput.textContent;
-}
+};
 function transferFromEdit() {
   nameOutput.textContent = nameField.value;
   titleOutput.textContent = titleField.value;
+};
+function resetForm() {
+  document.getElementById("popupForm").reset();
 }
-
 
 
 //обраточики кликов по всем кнопкам
@@ -153,16 +236,15 @@ editProfilePopup.addEventListener('submit', function (event) {
 
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
+  resetForm();
   addButton.classList.add('popup__button_inactive');
 });
 
 addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
-  const name = placeField.value;
-  const link = sourceField.value;
   const isPrepend = true;
-  addCard(name, link, isPrepend);
-  document.getElementById("popupForm").reset();
+  addCard(placeField.value, sourceField.value, isPrepend);
+  resetForm();
   closePopup(addCardPopup);
 });
 
