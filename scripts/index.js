@@ -58,33 +58,78 @@ const handleTrashButton = (evt) => {
 };
 //добавление карточек
 // создание новой карточки
+class Card {
+  constructor(name, link, cardSelector) {
+    this._name = name;
+    this._link = link;
+    this._cardSelector = cardSelector;
+  }
 
-function createCard(name, link) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const elementImage = cardElement.querySelector('.element__image');
-  elementImage.src = link;
-  elementImage.alt = name;
-  cardElement.querySelector(".element__name-title").textContent = name;
-  cardContainer.addEventListener('click', handleLikeIcon);
-  cardContainer.addEventListener('click', handleImageOpen);
-  cardContainer.addEventListener('click', handleTrashButton);
+  _getTemplate() {
+  const cardElement = document
+    .querySelector(this._cardSelector)
+    .content
+    .querySelector('.element')
+    .cloneNode(true);
   return cardElement;
 }
+  generateCard() {
+    this._element = this._getTemplate();
+    this._element.querySelector('.element__name-title').textContent = this._name;
+    this._element.querySelector('.element__image').src = this._link;
+    this._element.querySelector('.element__image').alt = this._name;
 
-// добавление карточки
-
-function addCard(name, link, isPrepend) {
-    if (isPrepend) {
-        cardContainer.prepend(createCard(name, link));
-    } else {
-        cardContainer.append(createCard(name, link));
-    }
+    return this._element;
+  }
 }
-//обходим массив, чтоб создать карточки и добавить в конец контейнера
 
-mapCards.forEach(function (card) {
-  addCard(card.name, card.link);
-});
+function addCard(card) {
+  cardContainer.prepend(card);
+}
+function createCard(name, value) {
+  const card = new Card(name, value, '#card');
+  addCard(card.createCard());
+}
+function addArrayCards(mapCards) {
+  mapCards.reverse().forEach(item => {
+    createCard(item.name, item.link);
+  });
+}
+addArrayCards(initialCards);
+
+// mapCards.forEach((item, cardSelector) => {
+// 	const card = new Card(item.name, item.link, '#card');
+// 	const cardElement = card.generateCard();
+//
+//   cardContainer.append(cardElement);
+// });
+
+// function createCard(name, link) {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   const elementImage = cardElement.querySelector('.element__image');
+//   elementImage.src = link;
+//   elementImage.alt = name;
+//   cardElement.querySelector(".element__name-title").textContent = name;
+//   cardContainer.addEventListener('click', handleLikeIcon);
+//   cardContainer.addEventListener('click', handleImageOpen);
+//   cardContainer.addEventListener('click', handleTrashButton);
+//   return cardElement;
+// }
+//
+// // добавление карточки
+//
+// function addCard(name, link, isPrepend) {
+//     if (isPrepend) {
+//         cardContainer.prepend(createCard(name, link));
+//     } else {
+//         cardContainer.append(createCard(name, link));
+//     }
+// }
+// //обходим массив, чтоб создать карточки и добавить в конец контейнера
+//
+// mapCards.forEach(function (card) {
+//   addCard(card.name, card.link);
+// });
 
 //очистка ошибки при закрытии попапа
 const clearErrors = () => {
