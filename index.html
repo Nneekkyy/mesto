@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/header-logo.svg" alt="Логотип место">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__container">
+          <img class="profile__image" src="./images/profile-avatar.png" alt="Фотография профиля">
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit" type="button"></button>
+            <h2 class="profile__title">Исследователь океана</h2>
+          </div>
+        </div>
+        <button class="profile__add" type="button"></button>
+      </section>
+      <section class="elements">
+        <ul class="elements__list">
+
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+    <div id='popupEdit' class="popup popup_edit-profile">
+      <div class="popup__container">
+        <button class="popup__close popup__close_edit-profile" type="button"></button>
+        <div class="popup__area">
+          <h2 class="popup__title">Редактировать профиль</h2>
+
+          <form class="popup__fields popup__fields_edit-profile" name="popups" novalidate>
+            <input id="nameField" class="popup__field" type="text" name="name" placeholder="Имя"
+            value="" minlength="2" maxlength="40" required>
+            <span id='nameField-error'></span>
+            <input id="titleField" class="popup__field" type="text" name="about" placeholder="О себе"
+            value="" minlength="2" maxlength="200" required>
+            <span id='titleField-error'></span>
+            <button class="popup__button popup__button_edit-profile" type="submit" value="Сохранить">Сохранить</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id='popupAdd' class="popup popup_add-card">
+      <div class="popup__container">
+        <button class="popup__close popup__close_add-card" type="button"></button>
+        <div class="popup__area popup__area_add-card">
+          <h2 class="popup__title popup__title_add-card">Новое место</h2>
+          <form id="popupForm" class="popup__fields popup__fields_add-card" name="popup__fields" novalidate>
+            <input id="placeField" class="popup__field popup__field_add-card" type="text" name="place"
+            placeholder="Название" value="" minlength="2" maxlength="30" required>
+            <span id='placeField-error'></span>
+            <input id="sourceField" class="popup__field popup__field_add-card" type="url" name="src"
+            placeholder="Ссылка на картинку" value="" required>
+            <span id='sourceField-error'></span>
+            <button class="popup__button popup__button_add-card" type="submit" value="Создать">Создать</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id='popupImage' class="popup popup_image">
+      <div class="popup__container">
+        <button class="popup__close popup__close_image" type="button"></button>
+        <img class="popup__image-full" src="#" alt="#">
+        <p class="popup__image-sign"></p>
+      </div>
+    </div>
+
+    <template id="card">
+      <li class="element">
+        <img class="element__image" src="#" alt="#">
+        <button class="element__button-trash" type="button"></button>
+        <div class="element__name-place">
+          <h2 class="element__name-title"></h2>
+          <button id="likeButton" class="element__button-like" type="button"></button>
+        </div>
+      </li>
+    </template>
+  </div>
+    <script type="module" src="./scripts/CardsData.js"></script>
+    <script type="module" src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
+</body>
+
+</html>
