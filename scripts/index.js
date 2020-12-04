@@ -10,7 +10,7 @@ const titleOutput =  document.querySelector('.profile__title');
 //попапы edit add img
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
-const imagePopup = document.querySelector('.popup_image');
+export const imagePopup = document.querySelector('.popup_image');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
 //template карточки
@@ -34,12 +34,7 @@ const signPlace =  document.querySelector('.popup__image-sign');
 const mapCards = initialCards.map (function (element) {
   return element
 });
-const handleImageOpen = (evt) => {
-  if (evt.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  }
-};
+
 //добавление карточек
 // создание новой карточки
 
@@ -79,7 +74,7 @@ const closeAtEscButton = (evt) => {
 };
 
 // Открытие/закрытие попапа
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeAtEscButton);
 }
@@ -144,7 +139,7 @@ closeAddButton.addEventListener('click', function () {
 //всё для img
 //открытие превью картинки
 
-function transferImageData() {
+export function transferImageData() {
   imagePlace.src = event.target.getAttribute("src");
   signPlace.textContent = event.target.getAttribute("alt");
 }
