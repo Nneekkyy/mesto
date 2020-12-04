@@ -36,26 +36,6 @@ const mapCards = initialCards.map (function (element) {
   return element
 });
 
-// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
-const handleLikeIcon = (evt) => {
-  if (evt.target.classList.contains('element__button-like')) {
-    evt.target.classList.toggle('element__button-like_active');
-  }
-};
-
-const handleImageOpen = (evt) => {
-  if (evt.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  }
-};
-
-const handleTrashButton = (evt) => {
-  if (evt.target.classList.contains('element__button-trash')) {
-      const cardContainer = event.target.closest('.element');
-      cardContainer.remove();
-  }
-};
 //добавление карточек
 // создание новой карточки
 class Card {
@@ -73,63 +53,54 @@ class Card {
     .cloneNode(true);
   return cardElement;
 }
+  _handleTrashButton(){
+     const cardContainer = event.target.closest('.element');
+     event.target.closest('.element').remove();
+   }
+   _handleLikeIcon(){
+     this._likeButton.classList.toggle('element__button-like_active');
+   }
+   _handleImageOpen(){
+         openPopup(imagePopup);
+         transferImageData();
+   }
+   _addListeners () {
+    this._deleteButton.addEventListener('click', () => {
+        this._handleTrashButton();
+      })
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeIcon();
+    })
+    this._cardImage.addEventListener('click', () => {
+      this._handleImageOpen();
+    })
+  }
   generateCard() {
     this._element = this._getTemplate();
     this._element.querySelector('.element__name-title').textContent = this._name;
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__image').alt = this._name;
-
+    this._likeButton = this._element.querySelector('.element__button-like');
+    this._deleteButton = this._element.querySelector('.element__button-trash');
+    this._cardImage = this._element.querySelector('.element__image');
+    this._addListeners();
     return this._element;
   }
 }
 
-function addCard(card) {
-  cardContainer.prepend(card);
-}
-function createCard(name, value) {
-  const card = new Card(name, value, '#card');
-  addCard(card.createCard());
-}
-function addArrayCards(mapCards) {
-  mapCards.reverse().forEach(item => {
-    createCard(item.name, item.link);
-  });
-}
-addArrayCards(initialCards);
+function addCard(name, link, isPrepend) {
+  const card = new Card(name, link, '#card');
+      if (isPrepend) {
+            cardContainer.prepend(card.generateCard());
+      } else {
+            cardContainer.append(card.generateCard());
+      }
 
-// mapCards.forEach((item, cardSelector) => {
-// 	const card = new Card(item.name, item.link, '#card');
-// 	const cardElement = card.generateCard();
-//
-//   cardContainer.append(cardElement);
-// });
+}
 
-// function createCard(name, link) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const elementImage = cardElement.querySelector('.element__image');
-//   elementImage.src = link;
-//   elementImage.alt = name;
-//   cardElement.querySelector(".element__name-title").textContent = name;
-//   cardContainer.addEventListener('click', handleLikeIcon);
-//   cardContainer.addEventListener('click', handleImageOpen);
-//   cardContainer.addEventListener('click', handleTrashButton);
-//   return cardElement;
-// }
-//
-// // добавление карточки
-//
-// function addCard(name, link, isPrepend) {
-//     if (isPrepend) {
-//         cardContainer.prepend(createCard(name, link));
-//     } else {
-//         cardContainer.append(createCard(name, link));
-//     }
-// }
-// //обходим массив, чтоб создать карточки и добавить в конец контейнера
-//
-// mapCards.forEach(function (card) {
-//   addCard(card.name, card.link);
-// });
+mapCards.forEach(function (card) {
+  addCard(card.name, card.link);
+});
 
 //очистка ошибки при закрытии попапа
 const clearErrors = () => {
