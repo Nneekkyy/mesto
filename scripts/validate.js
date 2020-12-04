@@ -56,7 +56,6 @@ function enableValidation(config) {
         toggleButtonState(submitButton, form.checkValidity(), config)
     });
 }
-
 //конфиг валидации
 const validationConfig = {
     formSelector: '.popup__fields',
@@ -68,3 +67,4 @@ const validationConfig = {
 };
 
 enableValidation(validationConfig);
+
