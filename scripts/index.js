@@ -37,8 +37,6 @@ const mapCards = initialCards.map (function (element) {
 
 //добавление карточек
 // создание новой карточки
-
-
 function addCard(name, link, isPrepend) {
   const card = new Card(name, link, '#card');
     if (isPrepend) {
