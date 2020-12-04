@@ -2,8 +2,6 @@
 import {initialCards} from './CardsData.js';
 // import {enableValidation} from './validate.js';
 
-
-
 //определяем элементы
 //поля edit
 const nameOutput = document.querySelector('.profile__name');
@@ -34,8 +32,7 @@ const signPlace =  document.querySelector('.popup__image-sign');
 
 const mapCards = initialCards.map (function (element) {
   return element
-});
-
+}
 //добавление карточек
 // создание новой карточки
 class Card {
@@ -98,9 +95,9 @@ function addCard(name, link, isPrepend) {
 
 }
 
-mapCards.forEach(function (card) {
-  addCard(card.name, card.link);
-});
+// mapCards.forEach(function (card) {
+//   addCard(card.name, card.link);
+// });
 
 //очистка ошибки при закрытии попапа
 const clearErrors = () => {
@@ -140,12 +137,14 @@ function closePopup(popup) {
 function transferInEdit() {
   nameField.value = nameOutput.textContent;
   titleField.value = titleOutput.textContent;
-}
+};
 function transferFromEdit() {
   nameOutput.textContent = nameField.value;
   titleOutput.textContent = titleField.value;
+};
+function resetForm() {
+  document.getElementById("popupForm").reset();
 }
-
 
 
 //обраточики кликов по всем кнопкам
@@ -169,16 +168,15 @@ editProfilePopup.addEventListener('submit', function (event) {
 
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
+  resetForm();
   addButton.classList.add('popup__button_inactive');
 });
 
 addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
-  const name = placeField.value;
-  const link = sourceField.value;
   const isPrepend = true;
-  addCard(name, link, isPrepend);
-  document.getElementById("popupForm").reset();
+  addCard(placeField.value, sourceField.value, isPrepend);
+  resetForm();
   closePopup(addCardPopup);
 });
 
