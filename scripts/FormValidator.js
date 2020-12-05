@@ -17,6 +17,7 @@ export class FormValidator {
     error.classList.remove(this._validationConfig.inputErrorClass);
     input.classList.remove(this._validationConfig.inputInvalidClass);
   }
+
   _checkInputValidity(input) {
     if (!input.validity.valid) {
         this._showInputError(input, input.validationMessage);
