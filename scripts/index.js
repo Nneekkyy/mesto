@@ -1,7 +1,8 @@
 //имопрт карточек и валидации
-import {initialCards} from './CardsData.js';
+import {initialCards} from './cardsdata.js';
 import {Card} from './Card.js';
-// import {enableValidation} from './validate.js';
+import {FormValidator} from './FormValidator.js';
+import {validationConfig} from './validate.js';
 
 //определяем элементы
 //поля edit
@@ -155,3 +156,9 @@ document.addEventListener ('click', function (event) {
     closePopup(popupOpened);
   }
 });
+
+const newPlacePopupValid = new FormValidator(validationConfig, addCardPopup);
+const profilePopupValid = new FormValidator(validationConfig, editProfilePopup);
+
+newPlacePopupValid.enableValidation();
+profilePopupValid.enableValidation();

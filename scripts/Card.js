@@ -14,14 +14,14 @@ export class Card {
     .cloneNode(true);
   return cardElement;
 }
-  _handleTrashButton(){
+  _handleTrashButton() {
      const cardContainer = event.target.closest('.element');
      event.target.closest('.element').remove();
    }
-   _handleLikeIcon(){
-     this._likeButton.classList.toggle('element__button-like_active');
+   _handleLikeIcon() {
+     this._likeButton.classList.toggle('element__button-like_active');0
    }
-   _handleImageOpen(){
+   _handleImageOpen() {
          openPopup(imagePopup);
          transferImageData();
    }
