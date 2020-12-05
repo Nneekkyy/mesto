@@ -1,8 +1,8 @@
 //имопрт карточек и валидации
-import {initialCards} from './CardsData.js';
-// import {enableValidation} from './validate.js';
-
-
+import {initialCards} from './cardsdata.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {validationConfig} from './validate.js';
 
 //определяем элементы
 //поля edit
@@ -11,7 +11,7 @@ const titleOutput =  document.querySelector('.profile__title');
 //попапы edit add img
 const editProfilePopup = document.querySelector('.popup_edit-profile');
 const addCardPopup = document.querySelector('.popup_add-card');
-const imagePopup = document.querySelector('.popup_image');
+export const imagePopup = document.querySelector('.popup_image');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
 //template карточки
@@ -36,51 +36,16 @@ const mapCards = initialCards.map (function (element) {
   return element
 });
 
-// открытые картинки, добавление/удаление лайка на карточке, удаление карточки
-const handleLikeIcon = (evt) => {
-  if (evt.target.classList.contains('element__button-like')) {
-    evt.target.classList.toggle('element__button-like_active');
-  }
-};
-
-const handleImageOpen = (evt) => {
-  if (evt.target.classList.contains('element__image')) {
-    openPopup(imagePopup);
-    transferImageData();
-  }
-};
-
-const handleTrashButton = (evt) => {
-  if (evt.target.classList.contains('element__button-trash')) {
-      const cardContainer = event.target.closest('.element');
-      cardContainer.remove();
-  }
-};
 //добавление карточек
 // создание новой карточки
-
-function createCard(name, link) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const elementImage = cardElement.querySelector('.element__image');
-  elementImage.src = link;
-  elementImage.alt = name;
-  cardElement.querySelector(".element__name-title").textContent = name;
-  cardContainer.addEventListener('click', handleLikeIcon);
-  cardContainer.addEventListener('click', handleImageOpen);
-  cardContainer.addEventListener('click', handleTrashButton);
-  return cardElement;
-}
-
-// добавление карточки
-
 function addCard(name, link, isPrepend) {
+  const card = new Card(name, link, '#card');
     if (isPrepend) {
-        cardContainer.prepend(createCard(name, link));
-    } else {
-        cardContainer.append(createCard(name, link));
+        cardContainer.prepend(card.generateCard());
+      } else {
+        cardContainer.append(card.generateCard());
     }
 }
-//обходим массив, чтоб создать карточки и добавить в конец контейнера
 
 mapCards.forEach(function (card) {
   addCard(card.name, card.link);
@@ -108,7 +73,7 @@ const closeAtEscButton = (evt) => {
 };
 
 // Открытие/закрытие попапа
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeAtEscButton);
 }
@@ -124,12 +89,14 @@ function closePopup(popup) {
 function transferInEdit() {
   nameField.value = nameOutput.textContent;
   titleField.value = titleOutput.textContent;
-}
+};
 function transferFromEdit() {
   nameOutput.textContent = nameField.value;
   titleOutput.textContent = titleField.value;
+};
+function resetForm() {
+  document.getElementById("popupForm").reset();
 }
-
 
 
 //обраточики кликов по всем кнопкам
@@ -153,16 +120,15 @@ editProfilePopup.addEventListener('submit', function (event) {
 
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
+  resetForm();
   addButton.classList.add('popup__button_inactive');
 });
 
 addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
-  const name = placeField.value;
-  const link = sourceField.value;
   const isPrepend = true;
-  addCard(name, link, isPrepend);
-  document.getElementById("popupForm").reset();
+  addCard(placeField.value, sourceField.value, isPrepend);
+  resetForm();
   closePopup(addCardPopup);
 });
 
@@ -172,7 +138,7 @@ closeAddButton.addEventListener('click', function () {
 //всё для img
 //открытие превью картинки
 
-function transferImageData() {
+export function transferImageData() {
   imagePlace.src = event.target.getAttribute("src");
   signPlace.textContent = event.target.getAttribute("alt");
 }
@@ -190,3 +156,10 @@ document.addEventListener ('click', function (event) {
     closePopup(popupOpened);
   }
 });
+
+// подключение валидации
+const addCardValid = new FormValidator(validationConfig, addCardPopup);
+const editProfileValid = new FormValidator(validationConfig, editProfilePopup);
+
+addCardValid.enableValidation();
+editProfileValid.enableValidation();
