@@ -49,15 +49,12 @@ export class FormValidator {
         this._toggleButtonState();
       })
     })
-    this._formSelector.addEventListener('submit', () => {
-      this._resetValidationState();
-    })
-    this._formSelector.addEventListener('closePopup', () => {
-      this._resetValidationState();
-    })
+    // this._formSelector.addEventListener('submit', () => {
+    //   this._resetValidationState();
+    // })
   }
-
-_resetValidationState() {
+//очистка ошибки при закрытии попапа
+resetValidationState() {
     this._inputArray.forEach(input => {
       this._hideInputError(input);
     })
