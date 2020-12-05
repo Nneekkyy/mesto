@@ -157,8 +157,9 @@ document.addEventListener ('click', function (event) {
   }
 });
 
-const newPlacePopupValid = new FormValidator(validationConfig, addCardPopup);
-const profilePopupValid = new FormValidator(validationConfig, editProfilePopup);
+// подключение валидации
+const addCardValid = new FormValidator(validationConfig, addCardPopup);
+const editProfileValid = new FormValidator(validationConfig, editProfilePopup);
 
-newPlacePopupValid.enableValidation();
-profilePopupValid.enableValidation();
+addCardValid.enableValidation();
+editProfileValid.enableValidation();
