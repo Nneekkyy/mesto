@@ -72,8 +72,6 @@ const closeAtEscButton = (evt) => {
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeAtEscButton);
-  addCardValid.resetValidationState();
-  editProfileValid.resetValidationState();
 }
 
 function closePopup(popup) {
@@ -103,6 +101,7 @@ function resetForm() {
 openEditButton.addEventListener('click', function () {
   openPopup(editProfilePopup);
   transferInEdit();
+  editProfileValid.resetValidationState();
 });
 
 closeEditButton.addEventListener('click', function () {
@@ -119,6 +118,7 @@ editProfilePopup.addEventListener('submit', function (event) {
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
   resetForm();
+  addCardValid.resetValidationState();
   addButton.classList.add('popup__button_inactive');
 });
 
