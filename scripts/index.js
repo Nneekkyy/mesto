@@ -14,8 +14,7 @@ const addCardPopup = document.querySelector('.popup_add-card');
 export const imagePopup = document.querySelector('.popup_image');
 //список карточек
 const cardContainer = document.querySelector('.elements__list');
-//template карточки
-const cardTemplate = document.querySelector('#card').content;
+
 //определяем все кнопки
 //кнопки открытия попапов
 const openEditButton = document.querySelector('.profile__edit');
@@ -28,6 +27,13 @@ const closeImageButton = document.querySelector('.popup__close_image')
 //данные открытой фотографии
 const imagePlace =  document.querySelector('.popup__image-full');
 const signPlace =  document.querySelector('.popup__image-sign');
+//переменные полей ввода редактирования профиля
+const popupNameField = document.querySelector('.popup__field_name');
+const popupTitleField = document.querySelector('.popup__field_title');
+//переменные полей ввода добавления карточки
+const popupPlaceField = document.querySelector('.popup__field_place');
+const popupSourceField = document.querySelector('.popup__field_source');
+
 
 //ФУНКЦИИ
 //создаём новый массив из изначального
@@ -51,16 +57,6 @@ mapCards.forEach(function (card) {
   addCard(card.name, card.link);
 });
 
-//очистка ошибки при закрытии попапа
-const clearErrors = () => {
-  document.querySelectorAll('.popup__field-error').forEach((span) => {
-   span.textContent = '';
-  span.classList.remove('popup__field-error');
-  });
-  document.querySelectorAll('.popup__field').forEach((input) => {
-    input.classList.remove('popup__field_invalid');
-  });
-};
 
 // закрытие попапа по нажатию Esc
 const escButton = 27;
@@ -81,18 +77,17 @@ export function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeAtEscButton);
-  clearErrors();
 }
 
 //запись текущих данных профиля в Edit и обратно после редактирования
 
 function transferInEdit() {
-  nameField.value = nameOutput.textContent;
-  titleField.value = titleOutput.textContent;
+  popupNameField.value = nameOutput.textContent;
+  popupTitleField.value = titleOutput.textContent;
 };
 function transferFromEdit() {
-  nameOutput.textContent = nameField.value;
-  titleOutput.textContent = titleField.value;
+  nameOutput.textContent = popupNameField.value;
+  titleOutput.textContent = popupTitleField.value;
 };
 function resetForm() {
   document.getElementById("popupForm").reset();
@@ -105,6 +100,7 @@ function resetForm() {
 openEditButton.addEventListener('click', function () {
   openPopup(editProfilePopup);
   transferInEdit();
+  editProfileValid.resetValidationState();
 });
 
 closeEditButton.addEventListener('click', function () {
@@ -121,13 +117,14 @@ editProfilePopup.addEventListener('submit', function (event) {
 openAddButton.addEventListener('click', function () {
   openPopup(addCardPopup);
   resetForm();
+  addCardValid.resetValidationState();
   addButton.classList.add('popup__button_inactive');
 });
 
 addCardPopup.addEventListener('submit', function (event) {
   event.preventDefault();
   const isPrepend = true;
-  addCard(placeField.value, sourceField.value, isPrepend);
+  addCard(popupPlaceField.value, popupSourceField.value, isPrepend);
   resetForm();
   closePopup(addCardPopup);
 });

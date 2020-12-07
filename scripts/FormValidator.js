@@ -17,6 +17,7 @@ export class FormValidator {
     error.classList.remove(this._validationConfig.inputErrorClass);
     input.classList.remove(this._validationConfig.inputInvalidClass);
   }
+
   _checkInputValidity(input) {
     if (!input.validity.valid) {
         this._showInputError(input, input.validationMessage);
@@ -48,15 +49,9 @@ export class FormValidator {
         this._toggleButtonState();
       })
     })
-    this._formSelector.addEventListener('submit', () => {
-      this._resetValidationState();
-    })
-    this._formSelector.addEventListener('closePopup', () => {
-      this._resetValidationState();
-    })
   }
-
-_resetValidationState() {
+//очистка ошибки при закрытии попапа
+resetValidationState() {
     this._inputArray.forEach(input => {
       this._hideInputError(input);
     })

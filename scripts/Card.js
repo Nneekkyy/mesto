@@ -15,15 +15,14 @@ export class Card {
   return cardElement;
 }
   _handleTrashButton() {
-     const cardContainer = event.target.closest('.element');
-     event.target.closest('.element').remove();
+     this._element.remove();
    }
    _handleLikeIcon() {
      this._likeButton.classList.toggle('element__button-like_active');0
    }
    _handleImageOpen() {
-         openPopup(imagePopup);
-         transferImageData();
+     openPopup(imagePopup);
+     transferImageData(); 
    }
    _addListeners () {
     this._deleteButton.addEventListener('click', () => {
@@ -39,8 +38,9 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._element.querySelector('.element__name-title').textContent = this._name;
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    const elementImage = this._element.querySelector('.element__image');
+    elementImage.src = this._link;
+    elementImage.alt = this._name;
     this._likeButton = this._element.querySelector('.element__button-like');
     this._deleteButton = this._element.querySelector('.element__button-trash');
     this._cardImage = this._element.querySelector('.element__image');
