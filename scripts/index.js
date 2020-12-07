@@ -75,6 +75,7 @@ export function openPopup(popup) {
 }
 
 function closePopup(popup) {
+
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeAtEscButton);
 }
@@ -159,4 +160,4 @@ const addCardValid = new FormValidator(validationConfig, addCardPopup);
 const editProfileValid = new FormValidator(validationConfig, editProfilePopup);
 
 addCardValid.enableValidation();
-editProfileValid.enableValidation();
+editProfileValid.enableValidation(); 

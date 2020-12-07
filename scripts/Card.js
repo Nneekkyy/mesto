@@ -22,7 +22,7 @@ export class Card {
    }
    _handleImageOpen() {
      openPopup(imagePopup);
-     transferImageData(); 
+     transferImageData();
    }
    _addListeners () {
     this._deleteButton.addEventListener('click', () => {
