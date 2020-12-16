@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Barrrsss/mesto.git"
+  },
+  "author": "Alexey Kranov\u001b[D\u001b[D\u001b[Dsnov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Barrrsss/mesto/issues"
+  },
+  "homepage": "https://github.com/Barrrsss/mesto#readme"
+}
