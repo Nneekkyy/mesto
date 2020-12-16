@@ -21,8 +21,8 @@ export class Card {
      this._likeButton.classList.toggle('element__button-like_active');
    }
    _handleImageOpen() {
-         openPopup(imagePopup);
-         transferImageData();
+     openPopup(imagePopup);
+     transferImageData(); 
    }
    _addListeners () {
     this._deleteButton.addEventListener('click', () => {

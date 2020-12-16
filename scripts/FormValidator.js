@@ -49,9 +49,6 @@ export class FormValidator {
         this._toggleButtonState();
       })
     })
-    // this._formSelector.addEventListener('submit', () => {
-    //   this._resetValidationState();
-    // })
   }
 //очистка ошибки при закрытии попапа
 resetValidationState() {
