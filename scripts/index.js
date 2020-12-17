@@ -37,7 +37,83 @@ const popupSourceField = document.querySelector('.popup__field_source');
 
 //ФУНКЦИИ
 //создаём новый массив из изначального
+class Section {
+  constructor({items, renderer}, containerSelector) {
+    this._renderedItems = items;
+    this._renderer = renderer;
+    this._container = document.querySelector(containerSelector);
+  }
+  addItem (element) {
+    this._container.prepend(element);
+  }
+  renderer () {
+    this._renderedItems.forEach(item => this._renderer(item));
+  }
+}
+// Открытие/закрытие попапа
+export function openPopup(popup) {
 
+
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeAtEscButton);
+}
+//всё для img
+//открытие превью картинки
+
+export function transferImageData() {
+  imagePlace.src = event.target.getAttribute("src");
+  signPlace.textContent = event.target.getAttribute("alt");
+}
+
+
+closeImageButton.addEventListener('click', function () {
+  closePopup(imagePopup);
+});
+
+// передать в конст
+const escButton = 27;
+
+
+
+
+//закрытие попапа по клику вне контейнера
+
+
+class Popup {
+  constructor(popupSelector) {
+    this._popup = document.querySelector(popupSelector);
+    this._closeButton = this._popup.document.querySelector('.popup__close');
+    this._escapeHandler = this._handleEscClose.bind(this);
+    this._overlayHandler = this._overlayClickClose.bind(this);
+  }
+  open() {
+    this._popup.classList.add('popup_opened');
+    document.addEventListener('keydown', this._escapeHandler);
+    this._popup.addEventListener('click', this._overlayHandler);
+  }
+  close () {
+    this._popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._escapeHandler);
+    this._popup.removeEventListener('click', this._overlayHandler);
+  }
+  _handleEscClose (evt) {
+    if (evt.keyCode === escButton) {
+      this._close;
+    }
+  }
+  _overlayClickClose (event){
+    const popupOpened = document.querySelector('.popup_opened');
+    if (event.target ===  popupOpened) {
+      close(popupOpened);
+    }
+  }
+  setEventListeners () {
+
+  }
+}
 const mapCards = initialCards.map (function (element) {
   return element
 });
@@ -58,8 +134,7 @@ mapCards.forEach(function (card) {
 });
 
 
-// закрытие попапа по нажатию Esc
-const escButton = 27;
+
 
 const closeAtEscButton = (evt) => {
   if (evt.keyCode === escButton) {
@@ -132,27 +207,6 @@ addCardPopup.addEventListener('submit', function (event) {
 
 closeAddButton.addEventListener('click', function () {
   closePopup(addCardPopup);
-});
-//всё для img
-//открытие превью картинки
-
-export function transferImageData() {
-  imagePlace.src = event.target.getAttribute("src");
-  signPlace.textContent = event.target.getAttribute("alt");
-}
-
-
-closeImageButton.addEventListener('click', function () {
-  closePopup(imagePopup);
-});
-
-
-//закрытие попапа по клику вне контейнера
-document.addEventListener ('click', function (event) {
-  const popupOpened = document.querySelector('.popup_opened');
-  if (event.target ===  popupOpened) {
-    closePopup(popupOpened);
-  }
 });
 
 // подключение валидации

@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "learning",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Barrrsss/mesto.git"
+  },
+  "author": "Alexey Krasnov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Barrrsss/mesto/issues"
+  },
+  "homepage": "https://github.com/Barrrsss/mesto#readme"
+}
