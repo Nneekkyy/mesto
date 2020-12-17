@@ -50,28 +50,6 @@ class Section {
     this._renderedItems.forEach(item => this._renderer(item));
   }
 }
-// Открытие/закрытие попапа
-export function openPopup(popup) {
-
-
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeAtEscButton);
-}
-//всё для img
-//открытие превью картинки
-
-export function transferImageData() {
-  imagePlace.src = event.target.getAttribute("src");
-  signPlace.textContent = event.target.getAttribute("alt");
-}
-
-
-closeImageButton.addEventListener('click', function () {
-  closePopup(imagePopup);
-});
 
 // передать в конст
 const escButton = 27;
@@ -111,107 +89,82 @@ class Popup {
     }
   }
   setEventListeners () {
+    this._closeButton.addEventListener('click', () => {
+        this._overlayClickClose();
+      })
+  }
+}
+class PopupWithImage extends Popup {
+  open (data) {
+    super.open();
+    const popupImage = this._popup.querySelector('.popup__image');
+    const popupHeading = this._popup.querySelector('.popup__image-sign');
+    popupImage.src = data.link;
+    popupHeading.textContent = data.place;
+    popupImage.alt = data.place;
+    super.setEventListeners();
+  }
+}
 
+class PopupWithForm extends Popup {
+  constructor(popupSelector, { submitHandler }) {
+    super(popupSelector);
+    this._submitHandler = submitHandler;
+    this._form = this._popup.querySelector('.popup__field');
+    this._submitButton = this._popup.querySelector('.popup__button_add-card');
+	}
+  _getInputValues() {
+      this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
+      this._formValues = {};
+      this._inputList.forEach((input) => {
+          this._formValues[input.name] = input.value;
+      });
+
+      return this._formValues;
+
+  }
+  setEventListeners() {
+      super.setEventListeners()
+      this._form.addEventListener('submit', (evt) => {
+          evt.preventDefault();
+          this._submitHandler(this._getInputValues());
+   });
+  }
+
+  close() {
+      super.close();
+      this._form.reset();
   }
 }
 const mapCards = initialCards.map (function (element) {
   return element
 });
 
-//добавление карточек
-// создание новой карточки
-function addCard(name, link, isPrepend) {
-  const card = new Card(name, link, '#card');
-    if (isPrepend) {
-        cardContainer.prepend(card.generateCard());
-      } else {
-        cardContainer.append(card.generateCard());
+class UserInfo {
+    constructor({ profileName, profileTitle }){
+        this._name = profileName;
+        this._occupation = profileTitle;
+    }
+
+    getUserInfo() {
+        this._profileInfo = {};
+
+        this._profileInfo.name = this._name.textContent;
+        this._profileInfo.title = this._title.textContent;
+
+       return this._profileInfo;
+
+    }
+
+    setUserInfo(profileData) {
+        this._name.textContent = profileData.name;
+        this._title.textContent = profileData.title;
     }
 }
-
-mapCards.forEach(function (card) {
-  addCard(card.name, card.link);
-});
-
-
-
-
-const closeAtEscButton = (evt) => {
-  if (evt.keyCode === escButton) {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-};
-
-// Открытие/закрытие попапа
-export function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeAtEscButton);
-}
-
-function closePopup(popup) {
-
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeAtEscButton);
-}
-
-//запись текущих данных профиля в Edit и обратно после редактирования
-
-function transferInEdit() {
-  popupNameField.value = nameOutput.textContent;
-  popupTitleField.value = titleOutput.textContent;
-};
-function transferFromEdit() {
-  nameOutput.textContent = popupNameField.value;
-  titleOutput.textContent = popupTitleField.value;
-};
-function resetForm() {
-  document.getElementById("popupForm").reset();
-}
-
-
-//обраточики кликов по всем кнопкам
-//всё для Edit
-
-openEditButton.addEventListener('click', function () {
-  openPopup(editProfilePopup);
-  transferInEdit();
-  editProfileValid.resetValidationState();
-});
-
-closeEditButton.addEventListener('click', function () {
-  closePopup(editProfilePopup);
-});
-
-editProfilePopup.addEventListener('submit', function (event) {
-  event.preventDefault();
-  transferFromEdit();
-  closePopup(editProfilePopup);
-});
-//всё для Add Image
-
-openAddButton.addEventListener('click', function () {
-  openPopup(addCardPopup);
-  resetForm();
-  addCardValid.resetValidationState();
-  addButton.classList.add('popup__button_inactive');
-});
-
-addCardPopup.addEventListener('submit', function (event) {
-  event.preventDefault();
-  const isPrepend = true;
-  addCard(popupPlaceField.value, popupSourceField.value, isPrepend);
-  resetForm();
-  closePopup(addCardPopup);
-});
-
-closeAddButton.addEventListener('click', function () {
-  closePopup(addCardPopup);
-});
 
 // подключение валидации
 const addCardValid = new FormValidator(validationConfig, addCardPopup);
 const editProfileValid = new FormValidator(validationConfig, editProfilePopup);
 
 addCardValid.enableValidation();
-editProfileValid.enableValidation(); 
+editProfileValid.enableValidation();
