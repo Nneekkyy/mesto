@@ -136,6 +136,25 @@ mapCards.forEach(function (card) {
 
 
 
+const closeAtEscButton = (evt) => {
+  if (evt.keyCode === escButton) {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+};
+
+// Открытие/закрытие попапа
+export function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeAtEscButton);
+}
+
+function closePopup(popup) {
+
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeAtEscButton);
+}
+
 //запись текущих данных профиля в Edit и обратно после редактирования
 
 function transferInEdit() {
@@ -195,4 +214,4 @@ const addCardValid = new FormValidator(validationConfig, addCardPopup);
 const editProfileValid = new FormValidator(validationConfig, editProfilePopup);
 
 addCardValid.enableValidation();
-editProfileValid.enableValidation();
+editProfileValid.enableValidation(); 
