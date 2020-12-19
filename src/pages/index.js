@@ -45,6 +45,7 @@ openEditButton.addEventListener('click', () => {
     popupTitleField.value = titleOutput.textContent;
     popupEdit.querySelector('.popup__button').classList.remove('popup__button_inactive');
     popupEdit.querySelector('.popup__button').disabled = false;
+    editProfileValid.resetValidationState();
 });
 
 editProfilePopup.setEventListeners();
@@ -58,6 +59,7 @@ const addCardPopup = new PopupWithForm('.popup_add-card', { submitHandler: (item
 
 openAddButton.addEventListener('click', () => {
     addCardPopup.open();
+    addCardValid.resetValidationState();
 });
 
 addCardPopup.setEventListeners();

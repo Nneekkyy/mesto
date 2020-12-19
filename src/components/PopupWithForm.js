@@ -24,9 +24,8 @@ export default class PopupWithForm extends Popup {
             this._submitHandler(this._getInputValues());
         });
     }
-
-    close() {
-        super.close();
+    open() {
+        super.open();
         this._fields.reset();
     }
 }

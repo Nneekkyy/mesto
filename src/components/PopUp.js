@@ -7,7 +7,7 @@ export default class Popup {
         this._overlayHandler = this._overlayClickHandler.bind(this);
         this._closeButton = this._popup.querySelector('.popup__close');
     }
-    
+
     _handleEscapeClose(evt) {
         if(evt.keyCode === escButton) {
             this.close();
