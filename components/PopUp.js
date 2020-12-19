@@ -7,11 +7,17 @@ export default class Popup {
         this._overlayHandler = this._overlayClickHandler.bind(this);
         this._closeButton = this._popup.querySelector('.popup__close');
     }
-
-    setEventListeners() {
-        this._closeButton.addEventListener('click', () => {
+    
+    _handleEscapeClose(evt) {
+        if(evt.keyCode === escButton) {
             this.close();
-        })
+        }
+    }
+
+    _overlayClickHandler(evt) {
+        if (evt.target.classList.contains('popup_opened')) {
+            evt.target.classList.remove('popup_opened');
+        }
     }
 
     open() {
@@ -26,16 +32,9 @@ export default class Popup {
         this._popup.removeEventListener('click', this._overlayHandler);
     }
 
-    _handleEscapeClose(evt) {
-        if(evt.keyCode === escButton) {
+    setEventListeners() {
+        this._closeButton.addEventListener('click', () => {
             this.close();
-        }
+        })
     }
-
-    _overlayClickHandler(evt) {
-        if (evt.target.classList.contains('popup_opened')) {
-            evt.target.classList.remove('popup_opened');
-        }
-    }
-
 }

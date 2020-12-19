@@ -13,7 +13,9 @@ export const popupTitleField = document.querySelector('.popup__field_title');
 //переменные полей ввода добавления карточки
 export const popupPlaceField = document.querySelector('.popup__field_place');
 export const popupSourceField = document.querySelector('.popup__field_source');
-
+//форма профиля и добавления карточки
+export const editProfileForm = document.querySelector('.popup__fields_edit-profile');
+export const addCardForm = document.querySelector('.popup__fields_add-card');
 //список карточек
 export const cardContainer = document.querySelector('.elements__list');
 

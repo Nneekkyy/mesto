@@ -5,13 +5,14 @@ export default class Section {
         this._container = containerSelector;
     }
 
-    renderItems() {
-        this._items.forEach((item) => {
-            this._renderer(item);
-        })
+    renderItems(items = this._items) {
+       items.reverse().forEach(item => {
+         this._renderer(item);
+       });
     }
 
-    addItem(element) {
-        this._container.append(element)
+    addItem(item) {
+       this._container.prepend(item);
     }
+
 }

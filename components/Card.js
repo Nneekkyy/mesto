@@ -1,17 +1,16 @@
-export class Card {
-    constructor({ data, openPopupHandler }, cardSelector) {
+export default class Card {
+    constructor({data, openPopup}, cardSelector) {
         this._cardImage = data.link;
-        this._cardHeading = data.name;
-        this._openPopupHandler = openPopupHandler;
+        this._cardName = data.name;
+        this._openPopup = openPopup;
         this._cardSelector = cardSelector;
     }
 
     _getTemplate() {
         const cardTemplate = document.querySelector(this._cardSelector);
         const cardElement = cardTemplate.content.querySelector('.element').cloneNode(true);
-
         cardElement.querySelector('.element__image').src = this._cardImage;
-        cardElement.querySelector('.element__name-title').textContent = this._cardHeading;
+        cardElement.querySelector('.element__name-title').textContent = this._cardName;
 
         return cardElement;
     }
@@ -39,14 +38,13 @@ export class Card {
         });
 
         this._cardImage.addEventListener('click', () => {
-            this._openPopupHandler();
+            this._openPopup();
         })
     }
 
     createCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
-
         return this._element;
       }
 
