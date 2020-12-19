@@ -48,7 +48,7 @@ export class FormValidator {
         this._checkInputValidity(input);
         this._toggleButtonState();
       })
-    }) 
+    })
   }
 //очистка ошибки при закрытии попапа
 resetValidationState() {
