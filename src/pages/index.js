@@ -1,7 +1,7 @@
-//имопрты
+//импорты
 import './index.css'
-import {nameOutput, titleOutput, openEditButton, openAddButton, popupNameField, popupTitleField, popupPlaceField, popupSourceField, cardContainer, editProfileForm, addCardForm, validationConfig} from '../utils/constants.js';
-import {initialCards} from '../components/cardsdata.js';
+import {validationConfig} from '../utils/constants.js';
+import {initialCards} from '../utils/cardsdata.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -9,10 +9,29 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
+//поля edit
+export const nameOutput = document.querySelector('.profile__name');
+export const titleOutput =  document.querySelector('.profile__title');
+
+//кнопки открытия попапов
+export const openEditButton = document.querySelector('.profile__edit');
+export const openAddButton = document.querySelector('.profile__add');
+
+//переменные полей ввода редактирования профиля
+export const popupNameField = document.querySelector('.popup__field_name');
+export const popupTitleField = document.querySelector('.popup__field_title');
+
+//переменные полей ввода добавления карточки
+export const popupPlaceField = document.querySelector('.popup__field_place');
+export const popupSourceField = document.querySelector('.popup__field_source');
+//форма профиля и добавления карточки
+export const editProfileForm = document.querySelector('.popup__fields_edit-profile');
+export const addCardForm = document.querySelector('.popup__fields_add-card');
+//список карточек
+export const cardContainer = document.querySelector('.elements__list');
+
+
 //отрисовка карточек из массива и создание новой
-const mapCards = initialCards.map (function (element) {
-  return element
-});
 
 const cardRender = (item) => {
     const card = new Card({ data: item, openPopup: () => {
@@ -23,7 +42,7 @@ const cardRender = (item) => {
     cardList.addItem(cardElement);
 };
 
-const cardList = new Section({ items: mapCards, renderer: (item) => {
+const cardList = new Section({ items: initialCards, renderer: (item) => {
         cardRender(item);
  }
 }, cardContainer);
@@ -43,8 +62,6 @@ openEditButton.addEventListener('click', () => {
     const profile = profileData.getUserInfo();
     popupNameField.value = nameOutput.textContent;
     popupTitleField.value = titleOutput.textContent;
-    popupEdit.querySelector('.popup__button').classList.remove('popup__button_inactive');
-    popupEdit.querySelector('.popup__button').disabled = false;
     editProfileValid.resetValidationState();
 });
 
@@ -66,6 +83,8 @@ addCardPopup.setEventListeners();
 
 //фулл картинки в карточке
 const showCardPopup = new PopupWithImage('.popup_image');
+
+showCardPopup.setEventListeners();
 
 // подключение валидации
 const addCardValid = new FormValidator(validationConfig, addCardForm);

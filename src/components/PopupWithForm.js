@@ -4,7 +4,7 @@ export default class PopupWithForm extends Popup {
     constructor(popupSelector, {submitHandler}) {
         super(popupSelector);
         this._submitHandler = submitHandler;
-        this._fields = this._popup.querySelector('.popup__fields');
+        this._form = this._popup.querySelector('.popup__fields');
     }
 
     _getInputValues() {
@@ -16,16 +16,21 @@ export default class PopupWithForm extends Popup {
         console.log(this._inputValues);
         return this._inputValues;
     }
-
+    _overlayClickHandler(evt) {
+        if (evt.target.classList.contains('popup_opened')) {
+            evt.target.classList.remove('popup_opened');
+            this._form.reset();
+        }
+    }
     setEventListeners() {
         super.setEventListeners()
-        this._fields.addEventListener('submit', (evt) => {
+        this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._submitHandler(this._getInputValues());
         });
     }
-    open() {
-        super.open();
-        this._fields.reset();
+    close() {
+        super.close();
+        this._form.reset();
     }
 }
