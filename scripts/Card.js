@@ -18,11 +18,11 @@ export class Card {
      this._element.remove();
    }
    _handleLikeIcon() {
-     this._likeButton.classList.toggle('element__button-like_active');
+     this._likeButton.classList.toggle('element__button-like_active');0
    }
    _handleImageOpen() {
      openPopup(imagePopup);
-     transferImageData();
+     transferImageData(); 
    }
    _addListeners () {
     this._deleteButton.addEventListener('click', () => {
