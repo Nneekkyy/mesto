@@ -16,12 +16,7 @@ export default class PopupWithForm extends Popup {
         console.log(this._inputValues);
         return this._inputValues;
     }
-    _overlayClickHandler(evt) {
-        if (evt.target.classList.contains('popup_opened')) {
-            evt.target.classList.remove('popup_opened');
-            this._form.reset();
-        }
-    }
+
     setEventListeners() {
         super.setEventListeners()
         this._form.addEventListener('submit', (evt) => {
