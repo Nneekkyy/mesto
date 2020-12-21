@@ -12,4 +12,4 @@
 - дальнейшая работа с JavaScript
 
 #### Ссылка на Github Pages
-https://barrrsss.github.io/mesto/
+https://barrrsss.github.io/mesto/index.html
