@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.1",
+    "install": "^0.13.0",
     "rimraf": "^3.0.2"
   }
 }

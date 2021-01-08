@@ -1,6 +1,6 @@
 //импорты
 import './index.css'
-import {validationConfig} from '../utils/constants.js';
+import {validationConfig, options} from '../utils/constants.js';
 import {initialCards} from '../utils/cardsdata.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -8,6 +8,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 //поля edit
 export const nameOutput = document.querySelector('.profile__name');
@@ -30,27 +31,42 @@ export const addCardForm = document.querySelector('.popup__fields_add-card');
 //список карточек
 export const cardContainer = document.querySelector('.elements__list');
 
+const api = new Api(options);
+
 
 //отрисовка карточек из массива и создание новой
 
-const cardRender = (item) => {
-    const card = new Card({ data: item, openPopup: () => {
-      showCardPopup.open(item);
-    }
-  }, '#card');
-    const cardElement = card.createCard();
-    cardList.addItem(cardElement);
-};
 
-const cardList = new Section({ items: initialCards, renderer: (item) => {
-        cardRender(item);
- }
-}, cardContainer);
 
-cardList.renderItems();
+
+api.getInitialCards()
+  .then((result) => {
+    console.log(result);
+    const profileData = new UserInfo({name: nameOutput, about: titleOutput});
+
+    const cardRender = (item) => {
+        const card = new Card({ data: item, openPopup: () => {
+          showCardPopup.open(item);
+        }
+      }, '#card');
+        const cardElement = card.createCard();
+        cardList.addItem(cardElement);
+    };
+
+    const cardList = new Section({ items: result, renderer: (item) => {
+            cardRender(item);
+     }
+    }, cardContainer);
+
+    cardList.renderItems();
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+
 
 //отображение профиля + попап редактирования
-const profileData = new UserInfo({name: nameOutput, about: titleOutput});
+
 
 const editProfilePopup = new PopupWithForm('.popup_edit-profile', { submitHandler: (userData) => {
     profileData.setUserInfo(userData);
