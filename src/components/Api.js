@@ -19,7 +19,21 @@ export default class Api {
     .then(res => this._getResponseData(res));
   }
   getProfileData() {
-    return this.authentication('/users/me')
+    return this.authentication('users/me')
     .then(res => this._getResponseData(res));
   }
+  getAllData() {
+        return Promise.all([this.getProfileData(), this.getInitialCards()]);
+    }
+    saveEditedInfo(formData) {
+          return fetch(`${this._url}users/me`, {
+              method: "PATCH",
+              headers:  this._headers,
+              body: JSON.stringify({
+                  name: formData.name,
+                  about: formData.about
+                })
+          }).then(res => this._getResponseData(res));
+
+      }
 }

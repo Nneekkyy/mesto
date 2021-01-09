@@ -13,6 +13,7 @@ import Api from '../components/Api.js';
 //поля edit
 export const nameOutput = document.querySelector('.profile__name');
 export const titleOutput =  document.querySelector('.profile__title');
+export const avatarOutput =  document.querySelector('.profile__image');
 
 //кнопки открытия попапов
 export const openEditButton = document.querySelector('.profile__edit');
@@ -39,10 +40,28 @@ const api = new Api(options);
 
 
 
-api.getInitialCards()
+api.getAllData()
   .then((result) => {
     console.log(result);
-    const profileData = new UserInfo({name: nameOutput, about: titleOutput});
+    const [userData, cardsData] = result;
+    const profileData = new UserInfo({name: nameOutput, about: titleOutput, avatar: avatarOutput});
+    profileData.setUserInfo(userData);
+
+    const editProfilePopup = new PopupWithForm('.popup_edit-profile', { submitHandler: (userData) => {
+        profileData.setUserInfo(userData);
+        editProfilePopup.close();
+    }});
+
+    openEditButton.addEventListener('click', () => {
+        editProfilePopup.open();
+        const profile = profileData.getUserInfo();
+        popupNameField.value = nameOutput.textContent;
+        popupTitleField.value = titleOutput.textContent;
+        editProfileValid.resetValidationState();
+    });
+
+    editProfilePopup.setEventListeners();
+
 
     const cardRender = (item) => {
         const card = new Card({ data: item, openPopup: () => {
@@ -53,7 +72,7 @@ api.getInitialCards()
         cardList.addItem(cardElement);
     };
 
-    const cardList = new Section({ items: result, renderer: (item) => {
+    const cardList = new Section({ items: cardsData, renderer: (item) => {
             cardRender(item);
      }
     }, cardContainer);
@@ -68,20 +87,9 @@ api.getInitialCards()
 //отображение профиля + попап редактирования
 
 
-const editProfilePopup = new PopupWithForm('.popup_edit-profile', { submitHandler: (userData) => {
-    profileData.setUserInfo(userData);
-    editProfilePopup.close();
-}});
 
-openEditButton.addEventListener('click', () => {
-    editProfilePopup.open();
-    const profile = profileData.getUserInfo();
-    popupNameField.value = nameOutput.textContent;
-    popupTitleField.value = titleOutput.textContent;
-    editProfileValid.resetValidationState();
-});
 
-editProfilePopup.setEventListeners();
+
 
 //попап добавления карточки
 const addCardPopup = new PopupWithForm('.popup_add-card', { submitHandler: (item) => {
