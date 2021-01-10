@@ -4,7 +4,7 @@ export default class Api {
     this._headers = options.headers;
   }
   authentication(name) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-19/${name}`, {
+    return fetch(`${this._url}${name}`, {
       headers: this._headers,
     });
   }
@@ -35,5 +35,22 @@ export default class Api {
                 })
           }).then(res => this._getResponseData(res));
 
+      }
+      addNewCard(item) {
+          return fetch(`https://mesto.nomoreparties.co/v1/cohort-19/cards`, {
+              method: "POST",
+              headers:  this._headers,
+              body: JSON.stringify({
+                  name: item.name,
+                  link: item.link
+                })
+          }).then(res => this._getResponseData(res));
+
+      }
+      putLike(cardId) {
+          return fetch(`${this._url}cards/likes/${cardId}`, {
+              method: "PUT",
+              headers: this._headers,
+          }).then(res => this._getResponseData(res));
       }
 }

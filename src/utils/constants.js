@@ -14,7 +14,7 @@ export const ESC_KEYCODE = 27;
 //идентификация для Api
 
 export const options = {
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19',
+    url: 'https://mesto.nomoreparties.co/v1/cohort-19/',
     headers: {
       authorization: '34fdcd7c-5eb8-4424-b9a2-100499773e16',
       'Content-Type': 'application/json',

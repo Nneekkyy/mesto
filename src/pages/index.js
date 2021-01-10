@@ -31,6 +31,7 @@ export const editProfileForm = document.querySelector('.popup__fields_edit-profi
 export const addCardForm = document.querySelector('.popup__fields_add-card');
 //список карточек
 export const cardContainer = document.querySelector('.elements__list');
+//лайки карточек
 
 const api = new Api(options);
 
@@ -48,8 +49,18 @@ api.getAllData()
     profileData.setUserInfo(userData);
 
     const editProfilePopup = new PopupWithForm('.popup_edit-profile', { submitHandler: (userData) => {
-        profileData.setUserInfo(userData);
-        editProfilePopup.close();
+      api.saveEditedInfo(userData)
+        .then((userData) => {
+          profileData.setUserInfo(userData);
+          editProfilePopup.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          renderLoading(false, editForm, 'Сохранить');
+        });
+
     }});
 
     openEditButton.addEventListener('click', () => {
@@ -62,14 +73,56 @@ api.getAllData()
 
     editProfilePopup.setEventListeners();
 
+    const addCardPopup = new PopupWithForm('.popup_add-card', { submitHandler: (item) => {
+      api.addNewCard(item)
+          .then((data) => {
+              cardRender(data);
+              addCardPopup.close();
+          })
+          .catch((err) => {
+              console.log(err);
+          })
+          .finally(() => {
 
-    const cardRender = (item) => {
+          });
+      }
+    });
+    openAddButton.addEventListener('click', () => {
+        addCardPopup.open();
+        addCardValid.resetValidationState();
+    });
+
+    addCardPopup.setEventListeners();
+
+    //фулл картинки в карточке
+    const showCardPopup = new PopupWithImage('.popup_image');
+
+    showCardPopup.setEventListeners();
+
+    const userId = userData._id;
+    console.log(userData._id);
+    const cardRender = (item, isArray) => {
         const card = new Card({ data: item, openPopup: () => {
           showCardPopup.open(item);
+        },
+
+        putLikeHandler: () => {
+            api.putLike(item._id)
+                .then((item) => {
+                  likeCounter.textContent = item.likes.length;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
-      }, '#card');
-        const cardElement = card.createCard();
-        cardList.addItem(cardElement);
+
+      }, '#card', userId);
+
+      const cardElement = card.createCard(item.owner._id);
+      const likeCounter = cardElement.querySelector('.element__like-counter');
+
+      console.log(item.likes.length);
+        cardList.addItem(cardElement, isArray);
     };
 
     const cardList = new Section({ items: cardsData, renderer: (item) => {
@@ -78,37 +131,22 @@ api.getAllData()
     }, cardContainer);
 
     cardList.renderItems();
-  })
+    })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
   });
 
 
-//отображение профиля + попап редактирования
 
-
-
-
-
-
-//попап добавления карточки
-const addCardPopup = new PopupWithForm('.popup_add-card', { submitHandler: (item) => {
-    cardRender(item);
-    addCardPopup.close();
-  }
-});
-
-openAddButton.addEventListener('click', () => {
-    addCardPopup.open();
-    addCardValid.resetValidationState();
-});
-
-addCardPopup.setEventListeners();
-
-//фулл картинки в карточке
-const showCardPopup = new PopupWithImage('.popup_image');
-
-showCardPopup.setEventListeners();
+// удаление
+// fetch('https://mesto.nomoreparties.co/v1/cohort-19/cards/5ffb31a930cbab0274373867', {
+//   method: 'DELETE',
+//   headers: {
+//     authorization: '34fdcd7c-5eb8-4424-b9a2-100499773e16',
+//     'Content-Type': 'application/json'
+//   },
+//
+// });
 
 // подключение валидации
 const addCardValid = new FormValidator(validationConfig, addCardForm);
