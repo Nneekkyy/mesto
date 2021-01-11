@@ -7,6 +7,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -114,8 +115,36 @@ api.getAllData()
                 .catch((err) => {
                     console.log(err);
                 });
-        }
+        },
+        deleteLikeHandler: () => {
+            api.deleteLike(item._id)
+                .then((item) => {
+                    likeCounter.textContent = item.likes.length;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        deleteHandler: () => {
+            const deleteCardPopup = new PopupWithConfirm(".popup__confirm", {
+                submitHandler: () => {
 
+                    api.deleteCard(item._id)
+                        .then(() => {
+                            cardElement.remove();
+                            deleteCardPopup.close();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                        .finally(() => {
+                          
+                        });
+                },
+            });
+            deleteCardPopup.open(item);
+            deleteCardPopup.setEventListeners();
+        },
       }, '#card', userId);
 
       const cardElement = card.createCard(item.owner._id);
