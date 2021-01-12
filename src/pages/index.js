@@ -41,7 +41,6 @@ const api = new Api(options);
 
 
 
-
 api.getAllData()
   .then((result) => {
     console.log(result);
@@ -102,9 +101,12 @@ api.getAllData()
 
     const userId = userData._id;
     console.log(userData._id);
+
+
     const cardRender = (item, isArray) => {
         const card = new Card({ data: item, openPopup: () => {
           showCardPopup.open(item);
+          ownerLikes();
         },
 
         putLikeHandler: () => {
@@ -125,8 +127,8 @@ api.getAllData()
                     console.log(err);
                 });
         },
-        deleteHandler: () => {
-            const deleteCardPopup = new PopupWithConfirm(".popup__confirm", {
+        deleteCardHandler: () => {
+            const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
                 submitHandler: () => {
 
                     api.deleteCard(item._id)
@@ -138,7 +140,7 @@ api.getAllData()
                             console.log(err);
                         })
                         .finally(() => {
-                          
+
                         });
                 },
             });
@@ -149,8 +151,6 @@ api.getAllData()
 
       const cardElement = card.createCard(item.owner._id);
       const likeCounter = cardElement.querySelector('.element__like-counter');
-
-      console.log(item.likes.length);
         cardList.addItem(cardElement, isArray);
     };
 

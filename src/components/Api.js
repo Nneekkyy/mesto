@@ -22,6 +22,7 @@ export default class Api {
     return this.authentication('users/me')
     .then(res => this._getResponseData(res));
   }
+
   getAllData() {
         return Promise.all([this.getProfileData(), this.getInitialCards()]);
     }
@@ -52,5 +53,18 @@ export default class Api {
               method: "PUT",
               headers: this._headers,
           }).then(res => this._getResponseData(res));
+      }
+      deleteLike(cardId) {
+          return fetch(`${this._url}cards/likes/${cardId}`, {
+              method: "DELETE",
+              headers:  this._headers
+          }).then(res => this._getResponseData(res));
+      }
+      deleteCard(cardId) {
+          return fetch(`${this._url}cards/${cardId}`, {
+              method: "DELETE",
+              headers:  this._headers
+          }).then(res => this._getResponseData(res));
+
       }
 }

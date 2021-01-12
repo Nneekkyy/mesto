@@ -1,12 +1,16 @@
 export default class Card {
-    constructor({data, openPopup, putLikeHandler, deleteCardHandler, deleteHandler}, cardSelector, userId) {
+    constructor({data, openPopup, putLikeHandler, deleteLikeHandler, deleteCardHandler}, cardSelector, userId) {
         this._cardImage = data.link;
         this._cardName = data.name;
         this._openPopup = openPopup;
         this._likes = data.likes;
         this._putLikeHandler = putLikeHandler;
+        this._deleteLikeHandler = deleteLikeHandler;
+        this._deleteCardHandler = deleteCardHandler;
+        this._ownerr = (data.likes._id);
         this._owner = (data.owner._id === userId);
         this._cardSelector = cardSelector;
+        console.log(data.likes);
     }
 
     _getTemplate() {
@@ -20,6 +24,21 @@ export default class Card {
     _putLikeHandler() {
         this._putLikeHandler();
     }
+    _deleteLikeHandler() {
+        this._deleteLikeHandler();
+    }
+    _likeHandler(evt) {
+    if(evt.target.classList.contains('element__button-like_active')) {
+        this._deleteLikeHandler();
+        evt.target.classList.remove('element__button-like_active');
+    } else {
+        this._putLikeHandler();
+        evt.target.classList.add('element__button-like_active');
+            }
+    }
+    _ownerLikes() {
+        console.log(this._owner);
+    }
     _numberOfLikes() {
         this._likeCounter = this._element.querySelector('.element__like-counter');
         this._likeCounter.textContent = this._likes.length;
@@ -29,9 +48,9 @@ export default class Card {
         this._cardLikeButton.classList.toggle('element__button-like_active');
     }
 
-    _deleteCardHandler() {
-        this._element.remove();
-    }
+    // _deleteCardHandler() {
+    //     this._element.remove();
+    // }
 
     _setEventListeners() {
         this._cardLikeButton = this._element.querySelector('.element__button-like');
@@ -40,8 +59,8 @@ export default class Card {
         if(this._owner) {
             this._cardDeleteButton.classList.add('element__button-trash_visible');
         }
-        this._cardLikeButton.addEventListener('click', () => {
-            this._likeCardHandler();
+        this._cardLikeButton.addEventListener('click', (evt) => {
+            this._likeHandler(evt);
         });
 
         this._cardDeleteButton.addEventListener('click', () => {
