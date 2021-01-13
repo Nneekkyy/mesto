@@ -7,10 +7,10 @@ export default class Card {
         this._putLikeHandler = putLikeHandler;
         this._deleteLikeHandler = deleteLikeHandler;
         this._deleteCardHandler = deleteCardHandler;
-        this._ownerr = (data.likes._id);
+        this._userId = userId;
         this._owner = (data.owner._id === userId);
         this._cardSelector = cardSelector;
-        console.log(data.likes);
+        this._data = JSON.stringify(data.likes);
     }
 
     _getTemplate() {
@@ -36,9 +36,7 @@ export default class Card {
         evt.target.classList.add('element__button-like_active');
             }
     }
-    _ownerLikes() {
-        console.log(this._owner);
-    }
+
     _numberOfLikes() {
         this._likeCounter = this._element.querySelector('.element__like-counter');
         this._likeCounter.textContent = this._likes.length;
@@ -58,6 +56,10 @@ export default class Card {
         this._cardImage = this._element.querySelector('.element__image');
         if(this._owner) {
             this._cardDeleteButton.classList.add('element__button-trash_visible');
+        }
+
+        if(this._data.includes(this._userId)) {
+            this._cardLikeButton.classList.add('element__button-like_active');
         }
         this._cardLikeButton.addEventListener('click', (evt) => {
             this._likeHandler(evt);

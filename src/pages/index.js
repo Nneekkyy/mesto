@@ -19,6 +19,7 @@ export const avatarOutput =  document.querySelector('.profile__image');
 //кнопки открытия попапов
 export const openEditButton = document.querySelector('.profile__edit');
 export const openAddButton = document.querySelector('.profile__add');
+export const updateAvatarButton = document.querySelector('.profile__image');
 
 //переменные полей ввода редактирования профиля
 export const popupNameField = document.querySelector('.popup__field_name');
@@ -38,13 +39,18 @@ const api = new Api(options);
 
 
 //отрисовка карточек из массива и создание новой
-
+updateAvatarButton.addEventListener("mouseover", function(  ){
+ document.querySelector('.profile__image_hover').style.display = 'block';
+});
+updateAvatarButton.addEventListener("mouseout", function(  ){
+ document.querySelector('.profile__image_hover').style.display = 'none';
+});
 
 
 api.getAllData()
   .then((result) => {
-    console.log(result);
     const [userData, cardsData] = result;
+    console.log(result);
     const profileData = new UserInfo({name: nameOutput, about: titleOutput, avatar: avatarOutput});
     profileData.setUserInfo(userData);
 
@@ -93,7 +99,7 @@ api.getAllData()
     });
 
     addCardPopup.setEventListeners();
-
+    
     //фулл картинки в карточке
     const showCardPopup = new PopupWithImage('.popup_image');
 
