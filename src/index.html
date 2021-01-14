@@ -74,23 +74,23 @@
         <button class="popup__close popup__close_edit-profile" type="button"></button>
         <div class="popup__area">
           <h2 class="popup__title">Вы уверены?</h2>
-
-          <form  class="popup__fields popup__fields_edit-profile" name="popups" novalidate>
-            <button class="popup__button popup__button_edit-profile" type="submit" value="Да">Да</button>
+          <form  class="popup__fields" name="popups" novalidate>
+            <button class="popup__button" type="submit" value="Да">Да</button>
           </form>
         </div>
       </div>
     </div>
-    <div class="popup popup_update-avatar">
-        <div class="popup__container">
+    <div id='popupAvatar' class="popup popup_update-avatar">
+      <div class="popup__container">
         <button class="popup__close" type="button"></button>
-        <form class="popup__form popup__form_type_update" method="POST" name="edit-profile" novalidate>
-            <h2 class="popup__heading">Обновить аватар</h2>
-            <input class="popup__input popup__input_avatar-url" type="url" name="url" id="avatar-url" placeholder="Ссылка на картинку" required>
-            <span class="popup__form-error" id="avatar-url-error"></span>
-            <button type="submit" class="popup__save-button popup__save-button_disabled" disabled>Сохранить</button>
-        </form>
+        <div class="popup__area">
+          <h2 class="popup__title">Обновить аватар</h2>
+
+          <form  class="popup__fields popup__fields_edit-profile" name="popups" novalidate>
+            <button class="popup__button popup__button_edit-profile" type="submit" value="Сохранить">Сохранить</button>
+          </form>
         </div>
+      </div>
     </div>
     <div id='popupImage' class="popup popup_image">
       <div class="popup__container">
