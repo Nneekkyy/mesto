@@ -6,6 +6,7 @@ export default class Popup {
         this._escapeHandler = this._handleEscapeClose.bind(this);
         this._overlayHandler = this._overlayClickHandler.bind(this);
         this._closeButton = this._popup.querySelector('.popup__close');
+        this._saveButton = this._popup.querySelector('.popup__button');
     }
 
     _handleEscapeClose(evt) {
@@ -31,7 +32,13 @@ export default class Popup {
         document.removeEventListener('keydown', this._escapeHandler);
         this._popup.removeEventListener('click', this._overlayHandler);
     }
-
+    isLoading(loading, name) {
+        if (loading) {
+            this._saveButton.textContent = 'Сохранение...';
+        } else {
+            this._saveButton.textContent = `${name}`;
+        }
+    }
     setEventListeners() {
         this._closeButton.addEventListener('click', () => {
             this.close();

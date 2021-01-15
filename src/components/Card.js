@@ -1,12 +1,12 @@
 export default class Card {
-    constructor({data, openPopup, putLikeHandler, deleteLikeHandler, deleteCardHandler}, cardSelector, userId) {
+    constructor({data, openPopup, putLike, deleteLike, deleteCard}, cardSelector, userId) {
         this._cardImage = data.link;
         this._cardName = data.name;
         this._openPopup = openPopup;
         this._likes = data.likes;
-        this._putLikeHandler = putLikeHandler;
-        this._deleteLikeHandler = deleteLikeHandler;
-        this._deleteCardHandler = deleteCardHandler;
+        this._putLike = putLike;
+        this._deleteLike = deleteLike;
+        this._deleteCard = deleteCard;
         this._userId = userId;
         this._owner = (data.owner._id === userId);
         this._cardSelector = cardSelector;
@@ -21,18 +21,18 @@ export default class Card {
 
         return cardElement;
     }
-    _putLikeHandler() {
-        this._putLikeHandler();
+    _putLike() {
+        this._putLike();
     }
-    _deleteLikeHandler() {
-        this._deleteLikeHandler();
+    _deleteLike() {
+        this._deleteLike();
     }
-    _likeHandler(evt) {
+    _like(evt) {
     if(evt.target.classList.contains('element__button-like_active')) {
-        this._deleteLikeHandler();
+        this._deleteLike();
         evt.target.classList.remove('element__button-like_active');
     } else {
-        this._putLikeHandler();
+        this._putLike();
         evt.target.classList.add('element__button-like_active');
             }
     }
@@ -42,13 +42,9 @@ export default class Card {
         this._likeCounter.textContent = this._likes.length;
     }
 
-    _likeCardHandler() {
+    _likeCard() {
         this._cardLikeButton.classList.toggle('element__button-like_active');
     }
-
-    // _deleteCardHandler() {
-    //     this._element.remove();
-    // }
 
     _setEventListeners() {
         this._cardLikeButton = this._element.querySelector('.element__button-like');
@@ -62,11 +58,11 @@ export default class Card {
             this._cardLikeButton.classList.add('element__button-like_active');
         }
         this._cardLikeButton.addEventListener('click', (evt) => {
-            this._likeHandler(evt);
+            this._like(evt);
         });
 
         this._cardDeleteButton.addEventListener('click', () => {
-            this._deleteCardHandler();
+            this._deleteCard();
         });
 
         this._cardImage.addEventListener('click', () => {
