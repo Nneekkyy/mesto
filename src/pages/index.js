@@ -126,7 +126,6 @@ console.log(userData._id);
 const cardRender = (item, isArray) => {
   const card = new Card({ data: item, openPopup: () => {
     showCardPopup.open(item);
-    ownerLikes();
   },
 
   putLike: () => {
