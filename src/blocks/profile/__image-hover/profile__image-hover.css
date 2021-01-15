@@ -1,4 +1,4 @@
-.profile__image_hover {
+.profile__image-hover {
   display: none;
   width: 26px;
   height: 26px;
@@ -7,6 +7,6 @@
   z-index: 1;
   opacity: 1;
 }
-.profile__image_hover:hover {
+.profile__image-hover:hover {
   cursor: pointer;
 }
