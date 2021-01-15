@@ -67,4 +67,13 @@ export default class Api {
           }).then(res => this._getResponseData(res));
 
       }
+      updateAvatar(qwe) {
+          return fetch(`${this._url}users/me/avatar`, {
+              method: "PATCH",
+              headers:  this._headers,
+              body: JSON.stringify({
+                  avatar: qwe.link,
+                })
+          }).then(res => this._getResponseData(res));
+      }
 }

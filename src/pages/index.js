@@ -34,7 +34,7 @@ export const addCardForm = document.querySelector('.popup__fields_add-card');
 //список карточек
 export const cardContainer = document.querySelector('.elements__list');
 //лайки карточек
-
+export const updateAvatarForm = document.querySelector('.popup__field_update');
 const api = new Api(options);
 
 
@@ -99,7 +99,31 @@ api.getAllData()
     });
 
     addCardPopup.setEventListeners();
-    
+const avatarElement = document.querySelector(".profile__image");
+    const updateAvatarPopup = new PopupWithForm(".popup_update-avatar", {
+            submitHandler: (formData) => {
+
+                api.updateAvatar(formData)
+                    .then((data) => {
+                        avatarElement.src = data.avatar;
+                        updateAvatarPopup.close();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+
+                    });
+            },
+        });
+
+
+        avatarElement.addEventListener("click", () => {
+            updateAvatarPopup.open();
+        });
+
+        updateAvatarPopup.setEventListeners();
+
     //фулл картинки в карточке
     const showCardPopup = new PopupWithImage('.popup_image');
 
