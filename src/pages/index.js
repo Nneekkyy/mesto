@@ -36,13 +36,13 @@ export const cardContainer = document.querySelector('.elements__list');
 const api = new Api(options);
 
 
-
+//получение всех данные и профиль
 api.getAllData()
 .then((result) => {
   const [userData, cardsData] = result;
   const profileData = new UserInfo({name: nameOutput, about: titleOutput, avatar: avatarOutput});
   profileData.setUserInfo(userData);
-
+//полный функционал редактирование профиля
   const editProfilePopup = new PopupWithForm('.popup_edit-profile', { submitHandler: (form) => {
     editProfilePopup.isLoading(true);
     api.saveEditedInfo(form)
@@ -69,6 +69,7 @@ api.getAllData()
 
   editProfilePopup.setEventListeners();
 
+//добавление карточек
   const addCardPopup = new PopupWithForm('.popup_add-card', { submitHandler: (item) => {
     addCardPopup.isLoading(true);
     api.addNewCard(item)
@@ -91,6 +92,7 @@ openAddButton.addEventListener('click', () => {
 
 addCardPopup.setEventListeners();
 
+//измененеи аватарки
 const updateAvatarPopup = new PopupWithForm(".popup_update-avatar", {
   submitHandler: (form) => {
     updateAvatarPopup.isLoading(true);
@@ -122,8 +124,8 @@ showCardPopup.setEventListeners();
 const userId = userData._id;
 console.log(userData._id);
 
-
-const cardRender = (item, isArray) => {
+//отрисовка всех карточек
+const cardRender = (item) => {
   const card = new Card({ data: item, openPopup: () => {
     showCardPopup.open(item);
   },
@@ -170,7 +172,7 @@ const cardRender = (item, isArray) => {
 
 const cardElement = card.createCard(item.owner._id);
 const likeCounter = cardElement.querySelector('.element__like-counter');
-cardList.addItem(cardElement, isArray);
+cardList.addItem(cardElement);
 };
 
 const cardList = new Section({ items: cardsData, renderer: (item) => {
