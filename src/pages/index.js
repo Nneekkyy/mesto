@@ -189,10 +189,10 @@ cardList.renderItems();
 
 //эффект наведения на аватарку
 avatarOutput.addEventListener("mouseover", function(){
-  document.querySelector('.profile__image_hover').style.display = 'block';
+  document.querySelector('.profile__image-hover').style.display = 'block';
 });
 avatarOutput.addEventListener("mouseout", function(){
-  document.querySelector('.profile__image_hover').style.display = 'none';
+  document.querySelector('.profile__image-hover').style.display = 'none';
 });
 
 
