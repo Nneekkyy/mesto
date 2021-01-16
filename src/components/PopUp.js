@@ -4,7 +4,7 @@ export default class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
         this._escapeHandler = this._handleEscapeClose.bind(this);
-        this._overlayHandler = this._overlayClickHandler.bind(this);
+        this._overlayHandler = this._handleOverlayClick.bind(this);
         this._closeButton = this._popup.querySelector('.popup__close');
         this._saveButton = this._popup.querySelector('.popup__button');
     }
@@ -15,7 +15,7 @@ export default class Popup {
         }
     }
 
-    _overlayClickHandler(evt) {
+    _handleOverlayClick(evt) {
         if (evt.target.classList.contains('popup_opened')) {
             evt.target.classList.remove('popup_opened');
         }

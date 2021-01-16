@@ -61,7 +61,6 @@ api.getAllData()
 
   openEditButton.addEventListener('click', () => {
     editProfilePopup.open();
-    const profile = profileData.getUserInfo();
     popupNameField.value = nameOutput.textContent;
     popupTitleField.value = titleOutput.textContent;
     editProfileValid.resetValidationState();
@@ -74,7 +73,7 @@ api.getAllData()
     addCardPopup.isLoading(true);
     api.addNewCard(item)
     .then((data) => {
-      cardRender(data);
+      renderCard(data);
       addCardPopup.close();
     })
     .catch((err) => {
@@ -125,7 +124,7 @@ const userId = userData._id;
 console.log(userData._id);
 
 //отрисовка всех карточек
-const cardRender = (item) => {
+const renderCard = (item) => {
   const card = new Card({ data: item, openPopup: () => {
     showCardPopup.open(item);
   },
@@ -176,7 +175,7 @@ cardList.addItem(cardElement);
 };
 
 const cardList = new Section({ items: cardsData, renderer: (item) => {
-  cardRender(item);
+  renderCard(item);
 }
 }, cardContainer);
 

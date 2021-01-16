@@ -37,7 +37,7 @@ export default class Card {
             }
     }
 
-    _numberOfLikes() {
+    _countNumberOfLikes() {
         this._likeCounter = this._element.querySelector('.element__like-counter');
         this._likeCounter.textContent = this._likes.length;
     }
@@ -73,7 +73,7 @@ export default class Card {
     createCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
-        this._numberOfLikes();
+        this._countNumberOfLikes();
         return this._element;
       }
 
