@@ -34,7 +34,7 @@ export default class Popup {
     }
     isLoading(loading, name) {
         if (loading) {
-            this._saveButton.textContent = 'Сохранение...';
+            this._saveButton.textContent = `${name}`;
         } else {
             this._saveButton.textContent = `${name}`;
         }

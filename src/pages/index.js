@@ -39,12 +39,13 @@ const api = new Api(options);
 //получение всех данные и профиль
 api.getAllData()
 .then((result) => {
+  console.log(result);
   const [userData, cardsData] = result;
   const profileData = new UserInfo({name: nameOutput, about: titleOutput, avatar: avatarOutput});
   profileData.setUserInfo(userData);
 //полный функционал редактирование профиля
   const editProfilePopup = new PopupWithForm('.popup_edit-profile', { submitHandler: (form) => {
-    editProfilePopup.isLoading(true);
+    editProfilePopup.isLoading(true, `Сохранение...`);
     api.saveEditedInfo(form)
     .then((userData) => {
       profileData.setUserInfo(userData);
@@ -60,9 +61,10 @@ api.getAllData()
   }});
 
   openEditButton.addEventListener('click', () => {
+    const profile = profileData.getUserInfo();
     editProfilePopup.open();
-    popupNameField.value = nameOutput.textContent;
-    popupTitleField.value = titleOutput.textContent;
+    popupNameField.value = profile.name;
+    popupTitleField.value = profile.about;
     editProfileValid.resetValidationState();
   });
 
@@ -70,7 +72,7 @@ api.getAllData()
 
 //добавление карточек
   const addCardPopup = new PopupWithForm('.popup_add-card', { submitHandler: (item) => {
-    addCardPopup.isLoading(true);
+    addCardPopup.isLoading(true, `Сохранение...`);
     api.addNewCard(item)
     .then((data) => {
       renderCard(data);
@@ -94,7 +96,7 @@ addCardPopup.setEventListeners();
 //измененеи аватарки
 const updateAvatarPopup = new PopupWithForm(".popup_update-avatar", {
   submitHandler: (form) => {
-    updateAvatarPopup.isLoading(true);
+    updateAvatarPopup.isLoading(true, `Сохранение...`);
     api.updateAvatar(form)
     .then((data) => {
       avatarOutput.src = data.avatar;
@@ -114,14 +116,33 @@ avatarOutput.addEventListener("click", () => {
 });
 
 updateAvatarPopup.setEventListeners();
+//удаление карточки
 
+const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
+  submitHandler: (item) => {
+    deleteCardPopup.isLoading(true, `Удаление...`);
+console.log(item);
+    api.deleteCard(item)
+    .then(() => {
+      cardElement.remove();
+      deleteCardPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      deleteCardPopup.isLoading(false, 'Да');
+    });
+  },
+});
+
+deleteCardPopup.setEventListeners();
 //фулл картинки в карточке
 const showCardPopup = new PopupWithImage('.popup_image');
 
 showCardPopup.setEventListeners();
 
 const userId = userData._id;
-console.log(userData._id);
 
 //отрисовка всех карточек
 const renderCard = (item) => {
@@ -147,25 +168,10 @@ const renderCard = (item) => {
       console.log(err);
     });
   },
-  deleteCard: () => {
-    const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
-      submitHandler: () => {
-
-        api.deleteCard(item._id)
-        .then(() => {
-          cardElement.remove();
-          deleteCardPopup.close();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-
-        });
-      },
-    });
+  deleteCard: (item) => {
     deleteCardPopup.open(item);
-    deleteCardPopup.setEventListeners();
+    console.log(item);
+    return item;
   },
 }, '#card', userId);
 

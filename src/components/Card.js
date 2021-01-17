@@ -9,6 +9,8 @@ export default class Card {
         this._deleteCard = deleteCard;
         this._userId = userId;
         this._owner = (data.owner._id === userId);
+        this._item = data._id;
+        this._items = data;
         this._cardSelector = cardSelector;
         this._data = JSON.stringify(data.likes);
     }
@@ -60,9 +62,9 @@ export default class Card {
         this._cardLikeButton.addEventListener('click', (evt) => {
             this._like(evt);
         });
-
+            console.log(this._item);
         this._cardDeleteButton.addEventListener('click', () => {
-            this._deleteCard();
+            this._deleteCard(this._item);
         });
 
         this._cardImage.addEventListener('click', () => {
