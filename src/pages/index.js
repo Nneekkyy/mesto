@@ -6,7 +6,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithConfirm from '../components/PopupWithForm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -119,12 +119,12 @@ updateAvatarPopup.setEventListeners();
 //удаление карточки
 
 const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
-  submitHandler: (item) => {
+  submitHandler: (card) => {
     deleteCardPopup.isLoading(true, `Удаление...`);
 console.log(item);
-    api.deleteCard(item)
-    .then(() => {
-      cardElement.remove();
+    api.deleteCard(card)
+    .then((card) => {
+      deleteA ();
       deleteCardPopup.close();
     })
     .catch((err) => {
@@ -171,7 +171,6 @@ const renderCard = (item) => {
   deleteCard: (item) => {
     deleteCardPopup.open(item);
     console.log(item);
-    return item;
   },
 }, '#card', userId);
 

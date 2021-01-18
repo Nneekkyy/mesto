@@ -39,6 +39,9 @@ export default class Card {
             }
     }
 
+  delete () {
+    this._element.remove();
+  }
     _countNumberOfLikes() {
         this._likeCounter = this._element.querySelector('.element__like-counter');
         this._likeCounter.textContent = this._likes.length;
