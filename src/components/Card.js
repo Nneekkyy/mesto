@@ -36,9 +36,12 @@ export default class Card {
     } else {
         this._putLike();
         evt.target.classList.add('element__button-like_active');
-            }
+      }
     }
-
+  delCard () {
+    this.card.remove();
+    this.card = null;
+  }
     _countNumberOfLikes() {
         this._likeCounter = this._element.querySelector('.element__like-counter');
         this._likeCounter.textContent = this._likes.length;

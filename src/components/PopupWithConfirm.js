@@ -25,9 +25,9 @@ import Popup from './Popup.js';
 //   }
 // }
 export default class PopupWithConfirm extends Popup {
-  constructor(popupSelector, submitHandler) {
+  constructor(popupSelector, {submitHandler}) {
     super(popupSelector);
-    this._form = this._popup.querySelector('.popup__fields');
+    this._form = this._popup.querySelector('.popup__fields-confirm');
     this._submitHandler = submitHandler;
   }
 
@@ -35,18 +35,17 @@ export default class PopupWithConfirm extends Popup {
     super.open();
     this.card = card;
   }
-
+  delCard () {
+    this.card.remove();
+    this.card = null;
+  }
   setEventListeners() {
     super.setEventListeners();
     this._listener = ((evt) => {
       evt.preventDefault();
-      this._handleSubmit(this.card)
+      this._submitHandler(this.card)
     });
-    this.form.addEventListener('submit', this._listener);
+    this._form.addEventListener('submit', this._listener);
   }
 
-  _removeEventListeners() {
-    super._removeEventListeners();
-    this.form.removeEventListener('submit', this._listener)
-  }
 }
