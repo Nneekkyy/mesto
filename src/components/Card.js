@@ -10,7 +10,7 @@ export default class Card {
         this._userId = userId;
         this._owner = (data.owner._id === userId);
         this._item = data._id;
-        this._items = data;
+        this._items = card;
         this._cardSelector = cardSelector;
         this._data = JSON.stringify(data.likes);
     }
@@ -38,9 +38,9 @@ export default class Card {
         evt.target.classList.add('element__button-like_active');
       }
     }
-  delCard () {
-    this.card.remove();
-    this.card = null;
+  deleteCard () {
+    this._element.remove();
+    this._element = null;
   }
     _countNumberOfLikes() {
         this._likeCounter = this._element.querySelector('.element__like-counter');
@@ -67,7 +67,7 @@ export default class Card {
         });
             console.log(this._item);
         this._cardDeleteButton.addEventListener('click', () => {
-            this._deleteCard(this._item);
+            this._deleteCard(() => this.deleteCard(), this._item);
         });
 
         this._cardImage.addEventListener('click', () => {

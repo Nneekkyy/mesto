@@ -39,7 +39,6 @@ const api = new Api(options);
 //получение всех данные и профиль
 api.getAllData()
 .then((result) => {
-  console.log(result);
   const [userData, cardsData] = result;
   const profileData = new UserInfo({name: nameOutput, about: titleOutput, avatar: avatarOutput});
   profileData.setUserInfo(userData);
@@ -119,12 +118,11 @@ updateAvatarPopup.setEventListeners();
 //удаление карточки
 
 const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
-  submitHandler: (card) => {
+  submitHandler: (deleteCard, id) => {
     deleteCardPopup.isLoading(true, `Удаление...`);
-console.log(card);
-    return api.deleteCard(card)
+    api.deleteCard(id)
     .then(() => {
-      card.delCard();
+      deleteCard();
       deleteCardPopup.close();
     })
     .catch((err) => {
@@ -168,8 +166,9 @@ const renderCard = (item) => {
       console.log(err);
     });
   },
-  deleteCard: (item) => {
-    deleteCardPopup.open(item);
+  deleteCard: (deleteCard, id) => {
+    deleteCardPopup.open(deleteCard, id);
+
   },
 }, '#card', userId);
 
