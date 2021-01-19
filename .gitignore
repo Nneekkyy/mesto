@@ -4,5 +4,6 @@
 /.idea/mesto.iml
 /.idea/workspace.xml
 /.idea/vcs.xml
+/.idea
 node_modules
 dist
