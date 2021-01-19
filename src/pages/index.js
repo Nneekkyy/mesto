@@ -23,9 +23,6 @@ export const openAddButton = document.querySelector('.profile__add');
 export const popupNameField = document.querySelector('.popup__field_name');
 export const popupTitleField = document.querySelector('.popup__field_title');
 
-//переменные полей ввода добавления карточки
-export const popupPlaceField = document.querySelector('.popup__field_place');
-export const popupSourceField = document.querySelector('.popup__field_source');
 //форма профиля и добавления карточки
 export const editProfileForm = document.querySelector('.popup__fields_edit-profile');
 export const addCardForm = document.querySelector('.popup__fields_add-card');
@@ -40,6 +37,7 @@ const api = new Api(options);
 api.getAllData()
 .then((result) => {
   const [userData, cardsData] = result;
+  const userId = userData._id;
   const profileData = new UserInfo({name: nameOutput, about: titleOutput, avatar: avatarOutput});
   profileData.setUserInfo(userData);
 //полный функционал редактирование профиля
@@ -115,6 +113,7 @@ avatarOutput.addEventListener("click", () => {
 });
 
 updateAvatarPopup.setEventListeners();
+
 //удаление карточки
 
 const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
@@ -135,12 +134,11 @@ const deleteCardPopup = new PopupWithConfirm(".popup_confirm", {
 });
 
 deleteCardPopup.setEventListeners();
+
 //фулл картинки в карточке
 const showCardPopup = new PopupWithImage('.popup_image');
 
 showCardPopup.setEventListeners();
-
-const userId = userData._id;
 
 //отрисовка всех карточек
 const renderCard = (item) => {
@@ -176,9 +174,9 @@ const likeCounter = cardElement.querySelector('.element__like-counter');
 cardList.addItem(cardElement);
 };
 
-const cardList = new Section({ items: cardsData, renderer: (item) => {
-  renderCard(item);
-}
+const cardList = new Section({ items: cardsData,
+  renderer: (item) => {
+  renderCard(item); }
 }, cardContainer);
 
 cardList.renderItems();
@@ -195,7 +193,6 @@ avatarOutput.addEventListener("mouseover", function(){
 avatarOutput.addEventListener("mouseout", function(){
   document.querySelector('.profile__image-hover').style.display = 'none';
 });
-
 
 
 // подключение валидации
