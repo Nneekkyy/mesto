@@ -17,11 +17,11 @@ export default class Api {
 
   getInitialCards() {
     return this.authentication('cards')
-    .then(res => this._getServerData(res));
+      .then(res => this._getServerData(res));
   }
   getProfileData() {
     return this.authentication('users/me')
-    .then(res => this._getServerData(res));
+      .then(res => this._getServerData(res));
   }
   getAllData() {
     return Promise.all([this.getProfileData(), this.getInitialCards()]);
