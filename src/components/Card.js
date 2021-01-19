@@ -4,8 +4,8 @@ export default class Card {
     this._cardName = data.name;
     this._openPopup = openPopup;
     this._likes = data.likes;
-    this._putLike = putLike;
-    this._deleteLike = deleteLike;
+    this._putLikes = putLike;
+    this._deleteLikes = deleteLike;
     this._deleteCard = deleteCard;
     this._userId = userId;
     this._owner = (data.owner._id === userId);
@@ -23,10 +23,10 @@ export default class Card {
     return cardElement;
   }
   _putLike() {
-    this._putLike();
+    this._putLikes();
   }
   _deleteLike() {
-    this._deleteLike();
+    this._deleteLikes();
   }
   _like(evt) {
     if(evt.target.classList.contains('element__button-like_active')) {
