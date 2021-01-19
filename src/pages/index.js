@@ -168,7 +168,6 @@ const renderCard = (item) => {
   },
   deleteCard: (deleteCard, id) => {
     deleteCardPopup.open(deleteCard, id);
-
   },
 }, '#card', userId);
 
