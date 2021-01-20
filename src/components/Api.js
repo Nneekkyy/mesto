@@ -47,7 +47,6 @@ export default class Api {
         link: item.link
       })
     }).then(res => this._getServerData(res));
-
   }
 
   putLike(cardId) {
