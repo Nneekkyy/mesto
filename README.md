@@ -14,5 +14,5 @@
 
 `npm run deploy` - опубликовать на gh-pages
 
-#### Ссылка на Github Pages
+## Ссылка на Github Pages
 https://barrrsss.github.io/mesto
